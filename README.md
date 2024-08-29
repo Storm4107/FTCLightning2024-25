@@ -7,7 +7,7 @@ This code incorporates Roadrunner, MeepMeep, FTCDashboard, and FTCLib.
 
 Everything in this code operates on a compartmentalized subsystem base, in which objects are created to represent every physical mechanism of the robot.
 A subsystem can be composed of multiple different mechanisms. This leads to a clean tree map of components on the robot that looks something like this:
-```
+```[FtcRobotController](FtcRobotController)
  .
   └── Robot/
       └── Superstructure/

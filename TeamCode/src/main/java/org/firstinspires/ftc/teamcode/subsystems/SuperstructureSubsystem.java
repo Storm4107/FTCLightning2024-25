@@ -29,7 +29,6 @@ public class SuperstructureSubsystem {
     private Servo leftServo;
     private Servo rightServo;
     private Telemetry telemetry;
-
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
 
@@ -87,7 +86,7 @@ public class SuperstructureSubsystem {
     public void highPreset() {
 
         Wrist.setAngle(1200);
-        Arm.setAngle(2800);
+        Arm.setAngle(20000);
         Elevator.setInches(1360);
     }
 

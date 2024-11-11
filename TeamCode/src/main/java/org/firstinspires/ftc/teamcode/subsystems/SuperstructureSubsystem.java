@@ -57,6 +57,11 @@ public class SuperstructureSubsystem {
 
         Elevator.setDebug();
     }
+    // calls the power brake for the elevator motors
+    public void elePowerBrake(){
+        elevatorMotor1.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        elevatorMotor2.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+    }
 
     //Sample preset - Brings all mechanisms to 0
     public void zeroPreset() {
@@ -69,10 +74,10 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to pickup
     public void groundPickupPreset() {
 
-        Elevator.setInches(600);
+        //Elevator.setInches(600);
         laterator.groundPickup();
-        pincher.open();
-        pincher.untuck();
+        //pincher.open();
+        //pincher.untuck();
     }
 
     public void tuckLaterator() {

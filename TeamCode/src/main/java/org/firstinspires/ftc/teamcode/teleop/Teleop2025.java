@@ -56,12 +56,18 @@ public class Teleop2025 extends LinearOpMode {
                 // sets the power brake on the drivetrain
                 m_Drive.zeroPowerBrake();
 
+                // sets the power brake for the elevator
+                m_Superstructure.elePowerBrake();
+
+                //zero the robot
+                //m_Superstructure.zeroPreset();
+
                 //Superstructure preset - Zero everything
                 if (Operator.getButton(GamepadKeys.Button.START)) {
                     m_Superstructure.zeroPreset();
                 }
 
-                if (Operator.getButton(GamepadKeys.Button.A)) {
+                if (Operator.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
                     m_Superstructure.groundPickupPreset();
                 }
 
@@ -108,9 +114,9 @@ public class Teleop2025 extends LinearOpMode {
                     m_Superstructure.pincher.setPivotAngle(0.75);
                 }
 
-                if (Operator.getButton(GamepadKeys.Button.A)) {
-                    m_Superstructure.groundPickupPreset();
-                }
+                //if (Operator.getButton(GamepadKeys.Button.A)) {
+                    //m_Superstructure.groundPickupPreset();
+                //}
 
                 if (Operator.getButton(GamepadKeys.Button.X)) {
                     m_Superstructure.tuckLaterator();

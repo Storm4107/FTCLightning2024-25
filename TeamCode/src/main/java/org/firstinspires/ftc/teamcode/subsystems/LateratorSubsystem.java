@@ -57,14 +57,14 @@ public class LateratorSubsystem {
 
     //Presets
     public void groundPickup() {
-        setLaterator(0.45);
-        setPivotAngle(0.85);
+        setLaterator(0.6);
+        setPivotAngle(-.3);
         intake();
     }
 
     public void retract() {
-        setLaterator(0);
-        setPivotAngle(0.45);
+        setLaterator(.7);
+        setPivotAngle(0);
         stopIntake();
     }
 

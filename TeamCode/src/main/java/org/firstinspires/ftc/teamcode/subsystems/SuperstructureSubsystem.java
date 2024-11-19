@@ -63,6 +63,15 @@ public class SuperstructureSubsystem {
         elevatorMotor2.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
     }
 
+
+    public void wristUp() {
+        pincher.wristUp();
+    }
+
+    public void wristDown() {
+        pincher.wristDown();
+    }
+
     //Sample preset - Brings all mechanisms to 0
     public void zeroPreset() {
 
@@ -74,7 +83,7 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to pickup
     public void groundPickupPreset() {
 
-        //Elevator.setInches(600);
+        //Elevator.setInches(6);
         laterator.groundPickup();
         //pincher.open();
         //pincher.untuck();
@@ -82,7 +91,7 @@ public class SuperstructureSubsystem {
 
     public void tuckLaterator() {
 
-        Elevator.setInches(600);
+        Elevator.setInches(6);
         laterator.retract();
         pincher.open();
         pincher.untuck();
@@ -91,7 +100,7 @@ public class SuperstructureSubsystem {
     public void HandoffPreset() {
 
         pincher.tuck();
-        Elevator.setInches(200);
+        Elevator.setInches(2);
         laterator.retract();
         pincher.tuck();
     }
@@ -99,7 +108,7 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to low bucket
     public void lowPreset() {
 
-        Elevator.setInches(0);
+        Elevator.setInches(20);
         laterator.retract();
         pincher.scoreSample();
     }

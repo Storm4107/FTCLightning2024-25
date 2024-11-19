@@ -20,7 +20,7 @@ public class Constants {
         //Amount of elevator stages in cascade rig. Needed for gear ratio.
         public static final int elevatorStages = 3;
 
-        //Coiunts per inch of the main elevator stage 2229
+        //Counts per inch of the main elevator stage 2229
         public static final double initialCPI = 1;
 
         //Initial counts / elevator stages returns the counts per inch for a cascade elevator.

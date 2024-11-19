@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.teamcode.hardware.ServoActuator;
 
 public class PincherSubsystem {
@@ -13,32 +13,35 @@ public class PincherSubsystem {
 
     private Servo pincherServo;
     private Servo pivotServo;
-    private Servo leftWristServo;
-    private Servo rightWristServo;
+    private CRServo leftWristServo;
+    private CRServo rightWristServo;
 
     public PincherSubsystem(HardwareMap Map) {
         //Servo hardwaremap setup
         pincherServo = Map.get(Servo.class, "pincherServo");
         pivotServo = Map.get(Servo.class, "pivotServo");
-        leftWristServo = Map.get(Servo.class, "leftWristServo");
-        rightWristServo = Map.get(Servo.class, "rightWristServo");
+        leftWristServo = Map.get(CRServo.class, "leftWristServo");
+        rightWristServo = Map.get(CRServo.class, "rightWristServo");
 
         //Hardware compilation
         pincher = new ServoActuator(pincherServo);
         pivot = new ServoActuator(pivotServo);
-        leftWrist = new ServoActuator(leftWristServo);
-        rightWrist = new ServoActuator(rightWristServo);
+
+    }
+
+    public void wristUp() {
+        leftWristServo.setPower(1);
+        rightWristServo.setPower(-1);
+    }
+
+    public void wristDown() {
+        leftWristServo.setPower(-1);
+        rightWristServo.setPower(1);
     }
 
     //set the angle of the pivot
     public void setPivotAngle(double angle) {
         pivot.setServos(angle);
-    }
-
-    //set the angle of the wrist
-    public void setWristAngle(double value) {
-        leftWrist.setServos(value);
-        rightWrist.setServos(1 -value);
     }
 
     //set pincher to open
@@ -54,32 +57,26 @@ public class PincherSubsystem {
     //Presets
     public void untuck() {
         open();
-        setWristAngle(-1);
         setPivotAngle(0.3);
     }
     public void tuck() {
-        setWristAngle(1);
         setPivotAngle(0.3);
     }
 
     public void wallPickup() {
        // open();
-        setWristAngle(0);
         setPivotAngle(1);
     }
 
     public void retract() {
-        setWristAngle(-1);
         setPivotAngle(0);
     }
 
     public void scoreSample() {
-        setWristAngle(0.75);
        // setPivotAngle(1);
     }
 
     public void scoreSpecimen() {
-        setWristAngle(-0.25);
       //  setPivotAngle(1);
     }
 

@@ -59,8 +59,10 @@ public class Teleop2025 extends LinearOpMode {
                 // sets the power brake for the elevator
                 m_Superstructure.elePowerBrake();
 
-                //zero the robot
-                //m_Superstructure.zeroPreset();
+                if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
+                    m_Superstructure.wristUp();
+                    
+                }
 
                 //Superstructure preset - Zero everything
                 if (Operator.getButton(GamepadKeys.Button.START)) {
@@ -94,17 +96,6 @@ public class Teleop2025 extends LinearOpMode {
                 if ((Operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3)) {
                     m_Superstructure.pincher.close();
                 }
-
-              //Wrist controls
-                if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
-                    m_Superstructure.pincher.untuck();
-                    //m_Superstructure.laterator.retract();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
-                    m_Superstructure.pincher.tuck();
-                    //m_Superstructure.laterator.groundPickup();
-                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
                     m_Superstructure.pincher.setPivotAngle(0.3);

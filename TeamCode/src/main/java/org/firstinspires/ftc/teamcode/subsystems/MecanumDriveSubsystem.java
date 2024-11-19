@@ -32,8 +32,6 @@ public class MecanumDriveSubsystem {
     private Motor leftBack;
     private Motor rightBack;
     private Telemetry telemetry;
-    //private MecanumDriveKinematics NoDeadwheelKinematics;
-    //private MecanumDriveOdometry NoDeadwheelOdometry
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -52,11 +50,6 @@ public class MecanumDriveSubsystem {
 
         Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
-        //Odometry for if there are no deadwheels
-        //NoDeadwheelKinematics = new MecanumDriveKinematics(new Translation2d(-0.25, 0.25), new Translation2d(0.25, 0.25), new Translation2d(-0.25, -0.25), new Translation2d(0.25, -0.25));
-        //NoDeadwheelOdometry = new MecanumDriveOdometry(NoDeadwheelKinematics, new Rotation2d(getHeading()));
-        //TODO: This portion is a WIP for a robot without 2 dead-wheel odometry.
-
         imu = new RevIMU(Map, "imu");
         imu.init();
     }
@@ -68,7 +61,7 @@ public class MecanumDriveSubsystem {
         } else {
             m = Constants.DriveConstants.DriveSpeedMult;
         }
-        Drive.driveFieldCentric(-y*m, -x*m, t*m,
+        Drive.driveFieldCentric(-y*m, x*m, -t*m,
                 getHeading() + Constants.DriveConstants.IMUOffset, Constants.DriveConstants.SquareInputs);
         drivePeriodic();
     }
@@ -94,7 +87,7 @@ public class MecanumDriveSubsystem {
 
     public int getForwardTicks(){
         //assumes Forward deadwheel is plugged into LeftFront
-        return leftFront.getCurrentPosition();
+        return -leftFront.getCurrentPosition();
     }
 
     public int getStrafeTicks(){
@@ -105,6 +98,14 @@ public class MecanumDriveSubsystem {
     public void resetDriveEncoders() {
         leftFront.stopAndResetEncoder();
         rightBack.stopAndResetEncoder();
+    }
+
+    public void zeroPowerBrake() {
+        // sets a Zero power behavior on the drivetrain motors
+        leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
     }
 
     public void drivePeriodic() {
@@ -127,16 +128,16 @@ public class MecanumDriveSubsystem {
     /**
      * Autonomously drive robot centric.
      * @param Forward forward/backward in inches (forward is positive)
-     * @param Right Right/left in inches (Right is positive)
+     * @param Left Right/left in inches (Left is positive)
      * @param TimeoutS  Allowed time to run command
      */
-    public void AutoDriveRC(double Forward, double Right, double TimeoutS) {
+    public void AutoDriveRC(double Forward, double Left, double TimeoutS) {
+        resetDriveEncoders();
         double initialHeading = getHeading();
 
         int ForwardTarget;
         int StrafeTarget;
-
-        if(linearOpMode.opModeIsActive()) {
+        double gain = Constants.AutoConstants.AutoGain;
 
             //Create PID constants
             PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
@@ -152,30 +153,29 @@ public class MecanumDriveSubsystem {
 
             //set target positions
             ForwardTarget = driveDistance(Forward);
-            StrafeTarget = driveDistance(Right);
+            StrafeTarget = driveDistance(Left);
 
             runtime.reset();
 
             StrafeController.setSetPoint(StrafeTarget);
             TranslationController.setSetPoint(ForwardTarget);
 
-            while(linearOpMode.opModeIsActive() &&
-                    (runtime.seconds() < TimeoutS) &&
-            !TranslationController.atSetPoint() && !StrafeController.atSetPoint() ) {
+            while((runtime.seconds() < TimeoutS) &&
+            !TranslationController.atSetPoint() || !StrafeController.atSetPoint() ) {
                 //Drivebot Periodic
                 //actually drives the robot.
-                DriveRobotRelative(StrafeController.calculate(getStrafeTicks(), StrafeTarget), TranslationController.calculate(getForwardTicks(), ForwardTarget), HeadingController.calculate(getHeading(), initialHeading), false);
+                DriveRobotRelative((StrafeController.calculate(getStrafeTicks(), StrafeTarget)  * gain), (TranslationController.calculate(getForwardTicks(), ForwardTarget) * gain), HeadingController.calculate(getHeading(), initialHeading), false);
                 telemetry.addData("AUTO DRIVE STATUS", "RUNNING");
                 telemetry.addData("X Travelled;", getForwardTicks());
                 telemetry.addData("Y Travelled;", getStrafeTicks());
                 telemetry.addData("Heading;", getHeading());
+                telemetry.update();
             }
 
             //Stop all motion
             DriveRobotRelative(0,0,0, false);
             resetDriveEncoders();
         }
-    }
 
     /**
      * Autonomously Drive to a specific heading.
@@ -183,9 +183,10 @@ public class MecanumDriveSubsystem {
      * @param TimeoutS  Allowed time to run command
      */
     public void SetHeading(double HeadingTarget, double TimeoutS) {
+        resetDriveEncoders();
         double initialHeading = getHeading();
 
-        if(linearOpMode.opModeIsActive()) {
+        if(true) {
 
             //Create PID constants
             PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
@@ -198,14 +199,14 @@ public class MecanumDriveSubsystem {
 
             HeadingController.setSetPoint(HeadingTarget);
 
-            while(linearOpMode.opModeIsActive() &&
-                    (runtime.seconds() < TimeoutS) &&
+            while((runtime.seconds() < TimeoutS) &&
                     !HeadingController.atSetPoint()) {
                 //Drivebot Periodic
                 //actually drives the robot.
-                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), initialHeading), false);
+                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
                 telemetry.addData("AUTO DRIVE STATUS", "HEADING");
                 telemetry.addData("Heading;", getHeading());
+                telemetry.update();
             }
 
             //Stop all motion

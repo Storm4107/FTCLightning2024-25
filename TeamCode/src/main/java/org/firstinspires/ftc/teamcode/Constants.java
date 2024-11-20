@@ -25,7 +25,7 @@ public class Constants {
 
         //Initial counts / elevator stages returns the counts per inch for a cascade elevator.
         public static final double elevatorCPI = initialCPI / elevatorStages;
-        public static final PIDCoefficients elevatorPID = new PIDCoefficients(0.0005, 0.0000, 0);
+        public static final PIDCoefficients elevatorPID = new PIDCoefficients(0.005, 0.0000, 0);
     }
 
     public static class AutoConstants {

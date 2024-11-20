@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 @Config
-@Autonomous(name = "2025 - ExampleDrivebotAuto", group = "Autonomous")
+@Autonomous(name = "2025 - redSampleAuto", group = "Autonomous")
 public class redSampleAuto extends LinearOpMode {
     //Instantiate mechanisms
     private SuperstructureSubsystem m_Superstructure;

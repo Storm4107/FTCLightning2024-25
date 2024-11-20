@@ -64,18 +64,10 @@ public class SuperstructureSubsystem {
     }
 
 
-    public void wristUp() {
-        pincher.wristUp();
-    }
-
-    public void wristDown() {
-        pincher.wristDown();
-    }
-
     //Sample preset - Brings all mechanisms to 0
     public void zeroPreset() {
 
-        Elevator.setInches(0);
+        Elevator.setInches(-500);
         laterator.retract();
         pincher.retract();
     }
@@ -84,7 +76,7 @@ public class SuperstructureSubsystem {
     public void groundPickupPreset() {
 
         //Elevator.setInches(6);
-        laterator.groundPickup();
+        laterator.extend();
         //pincher.open();
         //pincher.untuck();
     }
@@ -116,7 +108,7 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to high bucket
     public void highPreset() {
 
-        Elevator.setInches(0);
+        Elevator.setInches(-1750);
         laterator.retract();
         pincher.scoreSample();
     }

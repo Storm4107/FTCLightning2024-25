@@ -49,17 +49,31 @@ public class LateratorSubsystem {
     public void intake() {
         intakeServo.setPower(-1);
     }
-
-    //set pincher to closed
+    public void outake() {
+        intakeServo.setPower(1);
+    }
     public void stopIntake() {
         intakeServo.setPower(0);
     }
 
     //Presets
-    public void groundPickup() {
-        setLaterator(0.6);
-        setPivotAngle(-.3);
-        intake();
+    public void extend() {
+        setLaterator(0.4);
+        setPivotAngle(.4);
+    }
+
+
+    public void level() {
+        setPivotAngle(.31);
+    }
+
+    public void groundPickUp() {
+        setPivotAngle(.75);
+    }
+
+
+    public void discard() {
+        setPivotAngle(-1);
     }
 
     public void retract() {

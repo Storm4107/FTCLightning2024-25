@@ -67,7 +67,7 @@ public class ExampleTeleop extends LinearOpMode {
                 //Drivetrain method
                 m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
 
-                //Superstructure preset - Zero everything
+                /*//Superstructure preset - Zero everything
                 if (Operator.getButton(GamepadKeys.Button.BACK)) {
                     m_Superstructure.zeroPreset();
                 }
@@ -106,7 +106,7 @@ public class ExampleTeleop extends LinearOpMode {
                 if ((Operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3)) {
                     m_Superstructure.Pincher.close();
                 }
-
+*/
                 telemetry.update();
             }
         }

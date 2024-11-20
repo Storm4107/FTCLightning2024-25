@@ -34,6 +34,11 @@ public class PincherSubsystem {
         rightWristServo.setPower(-1);
     }
 
+    public void noWrist() {
+        leftWristServo.setPower(0);
+        rightWristServo.setPower(0);
+    }
+
     public void wristDown() {
         leftWristServo.setPower(-1);
         rightWristServo.setPower(1);

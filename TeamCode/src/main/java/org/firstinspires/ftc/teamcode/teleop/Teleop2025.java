@@ -59,22 +59,47 @@ public class Teleop2025 extends LinearOpMode {
                 // sets the power brake for the elevator
                 m_Superstructure.elePowerBrake();
 
+
                 if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
-                    m_Superstructure.wristUp();
-                    
+                    m_Superstructure.pincher.wristUp();
+                } else if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
+                    m_Superstructure.pincher.wristDown();
+                } else {
+                    m_Superstructure.pincher.noWrist();
                 }
+
 
                 //Superstructure preset - Zero everything
                 if (Operator.getButton(GamepadKeys.Button.START)) {
                     m_Superstructure.zeroPreset();
                 }
 
-                if (Operator.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
+                if (Operator.getButton(GamepadKeys.Button.X)) {
                     m_Superstructure.groundPickupPreset();
                 }
 
+                if (Operator.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
+                    m_Superstructure.laterator.discard();
+                } else if (Operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.03) {
+                    m_Superstructure.laterator.groundPickUp();
+                } else {
+                    m_Superstructure.laterator.level();
+                }
+
+
+
+                if (Operator.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
+                    m_Superstructure.laterator.outake();
+                } else if (Operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.03) {
+                    m_Superstructure.laterator.intake();
+                } else {
+                    m_Superstructure.laterator.stopIntake();
+                }
+
+
+
                 if (Operator.getButton(GamepadKeys.Button.X)) {
-                    m_Superstructure.lowPreset();
+                    //m_Superstructure.lowPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.Y)) {
@@ -104,20 +129,6 @@ public class Teleop2025 extends LinearOpMode {
                 if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
                     m_Superstructure.pincher.setPivotAngle(0.75);
                 }
-
-                //if (Operator.getButton(GamepadKeys.Button.A)) {
-                    //m_Superstructure.groundPickupPreset();
-                //}
-
-                if (Operator.getButton(GamepadKeys.Button.X)) {
-                    m_Superstructure.tuckLaterator();
-                }
-
-               if (Operator.getButton(GamepadKeys.Button.Y)) {
-                    m_Superstructure.HandoffPreset();
-               }
-
-
 
                 telemetry.update();
             }

@@ -70,6 +70,7 @@ public class SuperstructureSubsystem {
         Elevator.setInches(-500);
         laterator.retract();
         pincher.retract();
+        pincher.open();
     }
 
     //Sample preset - Brings all mechanisms to pickup

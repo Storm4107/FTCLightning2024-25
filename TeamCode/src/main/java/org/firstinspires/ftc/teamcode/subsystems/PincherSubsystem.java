@@ -13,15 +13,15 @@ public class PincherSubsystem {
 
     private Servo pincherServo;
     private Servo pivotServo;
-    private CRServo leftWristServo;
-    private CRServo rightWristServo;
+    private Servo leftWristServo;
+    private Servo rightWristServo;
 
     public PincherSubsystem(HardwareMap Map) {
         //Servo hardwaremap setup
         pincherServo = Map.get(Servo.class, "pincherServo");
         pivotServo = Map.get(Servo.class, "pivotServo");
-        leftWristServo = Map.get(CRServo.class, "leftWristServo");
-        rightWristServo = Map.get(CRServo.class, "rightWristServo");
+        leftWristServo = Map.get(Servo.class, "leftWristServo");
+        rightWristServo = Map.get(Servo.class, "rightWristServo");
 
         //Hardware compilation
         pincher = new ServoActuator(pincherServo);
@@ -30,18 +30,18 @@ public class PincherSubsystem {
     }
 
     public void wristUp() {
-        leftWristServo.setPower(1);
-        rightWristServo.setPower(-1);
+        leftWristServo.setPosition(.95);
+        rightWristServo.setPosition(-.95);
     }
 
     public void noWrist() {
-        leftWristServo.setPower(0);
-        rightWristServo.setPower(0);
+        leftWristServo.setPosition(0);
+        rightWristServo.setPosition(0);
     }
 
     public void wristDown() {
-        leftWristServo.setPower(-1);
-        rightWristServo.setPower(1);
+        leftWristServo.setPosition(-1);
+        rightWristServo.setPosition(1);
     }
 
     //set the angle of the pivot

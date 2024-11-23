@@ -68,7 +68,7 @@ public class LateratorSubsystem {
     }
 
     public void groundPickUp() {
-        setPivotAngle(.75);
+        setPivotAngle(.5);
     }
 
 

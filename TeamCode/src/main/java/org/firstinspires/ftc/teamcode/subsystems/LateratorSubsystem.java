@@ -77,9 +77,8 @@ public class LateratorSubsystem {
     }
 
     public void retract() {
-        setLaterator(.7);
+        setLaterator(.8);
         setPivotAngle(0);
-        stopIntake();
     }
 
     public void dump() {

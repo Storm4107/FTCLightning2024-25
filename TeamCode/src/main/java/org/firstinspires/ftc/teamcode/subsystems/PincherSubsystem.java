@@ -35,13 +35,13 @@ public class PincherSubsystem {
     }
 
     public void noWrist() {
-        leftWristServo.setPosition(0);
-        rightWristServo.setPosition(0);
+        leftWristServo.setPosition(-.7);
+        rightWristServo.setPosition(.7);
     }
 
     public void wristDown() {
-        leftWristServo.setPosition(-1);
-        rightWristServo.setPosition(1);
+        leftWristServo.setPosition(-.4);
+        rightWristServo.setPosition(.4);
     }
 
     //set the angle of the pivot
@@ -61,11 +61,12 @@ public class PincherSubsystem {
 
     //Presets
     public void untuck() {
-        open();
+        close();
         setPivotAngle(0.3);
     }
     public void tuck() {
         setPivotAngle(0.3);
+        close();
     }
 
     public void wallPickup() {
@@ -78,11 +79,15 @@ public class PincherSubsystem {
     }
 
     public void scoreSample() {
-       // setPivotAngle(1);
+       leftWristServo.setPosition(-.7);
+       rightWristServo.setPosition(.7);
+       setPivotAngle(.07);
     }
 
     public void scoreSpecimen() {
-      //  setPivotAngle(1);
+        setPivotAngle(1);
+        leftWristServo.setPosition(-.2);
+        rightWristServo.setPosition(.2);
     }
 
 

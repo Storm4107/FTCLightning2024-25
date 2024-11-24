@@ -72,13 +72,14 @@ public class Teleop2025 extends LinearOpMode {
                 //Superstructure preset - Zero everything
                 if (Operator.getButton(GamepadKeys.Button.START)) {
                     m_Superstructure.zeroPreset();
-                    m_Superstructure.pincher.setPivotAngle(0.07);
                 }
 
+                //extends the laterator only
                 if (Operator.getButton(GamepadKeys.Button.X)) {
                     m_Superstructure.groundPickupPreset();
                 }
 
+                //pitches the intake
                 if (Operator.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
                     m_Superstructure.laterator.discard();
                 } else if (Operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.03) {
@@ -89,6 +90,7 @@ public class Teleop2025 extends LinearOpMode {
 
 
 
+                //spins the impellers
                 if (Operator.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
                     m_Superstructure.laterator.outake();
                 } else if (Operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.03) {
@@ -97,30 +99,35 @@ public class Teleop2025 extends LinearOpMode {
                     m_Superstructure.laterator.stopIntake();
                 }
 
-
-
-                if (Operator.getButton(GamepadKeys.Button.X)) {
-                    //m_Superstructure.lowPreset();
+                //drops elevator into the intake for pass through
+                if (Operator.getButton(GamepadKeys.Button.A)) {
+                   m_Superstructure.HandoffPreset();
                 }
 
+                //prepares to score in the high basket
                 if (Operator.getButton(GamepadKeys.Button.Y)) {
                     m_Superstructure.highPreset();
                 }
 
+                //prepares to score specimen
+                if (Operator.getButton(GamepadKeys.Button.B)) {
+                    m_Superstructure.lowPreset();
+                }
+
+                //opens the pincher
+                if (Operator.getButton(GamepadKeys.Button.LEFT_STICK_BUTTON)) {
+                    m_Superstructure.pincher.open();
+                }
+
+                //closes the pincher
+                if (Operator.getButton(GamepadKeys.Button.RIGHT_STICK_BUTTON)) {
+                    m_Superstructure.pincher.close();
+            }
                 //Superstructure manual input toggle - Triggered by holding holding left bumper
                 if (Operator.getButton(GamepadKeys.Button.BACK)) {
                     m_Superstructure.ManualInput(Operator.getLeftY());
                     telemetry.addData(
                             "MANUAL INPUT", "ENABLED");
-                }
-
-                //Pincher controls
-                if (Operator.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
-                    m_Superstructure.pincher.open();
-                }
-
-                if ((Operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3)) {
-                    m_Superstructure.pincher.close();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {

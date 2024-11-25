@@ -61,11 +61,12 @@ public class Teleop2025 extends LinearOpMode {
 
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
-                    m_Superstructure.pincher.wristUp();
+                    m_Superstructure.pincher.scoreSpecimen();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
-                    m_Superstructure.pincher.wristDown();
+                    m_Superstructure.Elevator.setInches(0);
+                    m_Superstructure.pincher.wallPickup();
                 }
 
 
@@ -116,7 +117,7 @@ public class Teleop2025 extends LinearOpMode {
 
                 //opens the pincher
                 if (Operator.getButton(GamepadKeys.Button.LEFT_STICK_BUTTON)) {
-                    m_Superstructure.pincher.open();
+                    m_Superstructure.pincher.wideOpen();
                 }
 
                 //closes the pincher

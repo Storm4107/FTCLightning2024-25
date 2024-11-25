@@ -71,7 +71,7 @@ public class SuperstructureSubsystem {
         laterator.retract();
         pincher.wristUp();
         pincher.open();
-        pincher.setPivotAngle(.07);
+        pincher.setPivotAngle(.42);
     }
 
     //Sample preset - Brings all mechanisms to pickup
@@ -94,13 +94,18 @@ public class SuperstructureSubsystem {
         laterator.retract();
     }
 
-    //Sample preset - Brings all mechanisms to low bucket
+    //Sample preset - Brings all mechanisms to high rung
     public void lowPreset() {
 
-        Elevator.setInches(-500);
+        Elevator.setInches(-300);
         pincher.scoreSpecimen();
     }
 
+    public void scoreSpecimen() {
+
+        Elevator.setInches(-400);
+
+    }
     //Sample preset - Brings all mechanisms to high bucket
     public void highPreset() {
 

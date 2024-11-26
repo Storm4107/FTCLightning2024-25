@@ -7,9 +7,6 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 public class Constants {
     public static class DriveConstants {
 
-
-        //test comment
-
         public static final boolean SquareInputs = false;
         public static final double DampenMult = 0.3;
         public static final double DriveSpeedMult = 1;

@@ -1,34 +1,35 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
-import com.arcrobotics.ftclib.hardware.ServoEx;
-import com.arcrobotics.ftclib.hardware.SimpleServo;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.hardware.DoubleMotorArm;
+import org.firstinspires.ftc.teamcode.hardware.DoubleMotorLinearActuator;
+import org.firstinspires.ftc.teamcode.hardware.DoubleServoPincher;
+import org.firstinspires.ftc.teamcode.hardware.LinearActuator;
+import org.firstinspires.ftc.teamcode.hardware.ServoActuator;
+import org.firstinspires.ftc.teamcode.hardware.SingleMotorArm;
 
 public class SuperstructureSubsystem {
 
-    public SingleMotorArm Wrist;
-    public DoubleMotorArm Arm;
-    public LinearActuator Elevator;
+    public DoubleMotorLinearActuator Elevator;
 
-    public DoubleServoPincher Pincher;
+    public PincherSubsystem pincher;
+    public LateratorSubsystem laterator;
 
-    private Motor leftArmMotor;
-    private Motor rightArmMotor;
+    private Motor elevatorMotor1;
+    private Motor elevatorMotor2;
 
-    private Motor wristMotor;
-
-    private Motor elevatorMotor;
-
-    private Servo leftServo;
-    private Servo rightServo;
     private Telemetry telemetry;
+
+
+    ElapsedTime runtime;
 
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
@@ -36,98 +37,115 @@ public class SuperstructureSubsystem {
         //Create motor objects
         this.telemetry = telemetry;
 
-        leftArmMotor = new Motor(Map, "leftArmMotor");
-        rightArmMotor = new Motor(Map, "rightArmMotor");
-        wristMotor = new Motor(Map, "wristMotor");
-        elevatorMotor = new Motor(Map, "elevatorMotor");
+        elevatorMotor1 = new Motor(Map, "elevatorMotor1");
+        elevatorMotor2 = new Motor(Map, "elevatorMotor2");
 
-        leftServo = Map.get(Servo.class, "leftServo");
-        rightServo = Map.get(Servo.class, "rightServo");
+        pincher = new PincherSubsystem(Map);
+
+        laterator = new LateratorSubsystem(Map);
 
         //Link motors to superstructure parts
-        Wrist = new SingleMotorArm(
-                wristMotor,
-                Constants.SuperstructureConstants.wristGearRatio,
-                false,
-                Constants.SuperstructureConstants.wristPID);
-
-        Arm = new DoubleMotorArm(
-                leftArmMotor,
-                rightArmMotor,
-                Constants.SuperstructureConstants.armGearRatio,
-                true,
-                false,
-                Constants.SuperstructureConstants.armPID);
-
-        Elevator = new LinearActuator(
-                elevatorMotor,
+        Elevator = new DoubleMotorLinearActuator(
+                elevatorMotor1,
+                elevatorMotor2,
                 Constants.SuperstructureConstants.elevatorCPI,
                 true,
+                false,
                 Constants.SuperstructureConstants.elevatorPID);
-
-        Pincher = new DoubleServoPincher(leftServo, rightServo);
     }
 
     public void enableDebug() {
 
-        Wrist.setDebug();
-        Arm.setDebug();
         Elevator.setDebug();
     }
+    // calls the power brake for the elevator motors
+    public void elePowerBrake(){
+        elevatorMotor1.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        elevatorMotor2.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+    }
+
 
     //Sample preset - Brings all mechanisms to 0
     public void zeroPreset() {
 
-        Wrist.setAngle(0);
-        Arm.setAngle(0);
-        Elevator.setInches(0);
-    }
-
-    //Sample preset - Brings all mechanisms to high drop-off
-    public void highPreset() {
-
-        Wrist.setAngle(1200);
-        Arm.setAngle(2800);
-        Elevator.setInches(1360);
+        Elevator.setInches(-350);
+        laterator.retract();
+        pincher.wristUp();
+        pincher.open();
+        pincher.setPivotAngle(.42);
     }
 
     //Sample preset - Brings all mechanisms to pickup
-    public void pickupPreset() {
+    public void groundPickupPreset() {
 
-        Wrist.setAngle(1650);
-        Arm.setAngle(0);
-        Elevator.setInches(0);
+        laterator.extend();
     }
 
-    //Sample preset - Brings all mechanisms to medium
-    public void mediumPreset() {
+    public void tuckLaterator() {
 
-        Wrist.setAngle(1130);
-        Arm.setAngle(1970);
-        Elevator.setInches(1360);
+        Elevator.setInches(6);
+        laterator.retract();
+        pincher.open();
+        pincher.untuck();
+    }
+
+    public void HandoffPreset() {
+
+        Elevator.setInches(0);
+        laterator.retract();
+    }
+
+    //Sample preset - Brings all mechanisms to high rung
+    public void lowPreset() {
+
+        Elevator.setInches(-300);
+        pincher.scoreSpecimen();
+    }
+
+    public void scoreSpecimen() {
+
+        Elevator.setInches(-400);
+
+    }
+    //Sample preset - Brings all mechanisms to high bucket
+    public void highPreset() {
+
+        Elevator.setInches(-1750);
+        laterator.retract();
+        pincher.scoreSample();
+
+
     }
 
     /**
-     * Sets the arm into a manual input mode where the input can be toggled by button
-     * @param input raw input - should be a joystick
-     * @param armToggle button to input to arm
-     * @param wristToggle button to input to wrist
-     * @param elevatorToggle button to input to elevator
+     * Sets the Elevator/laterator into a manual input mode where the input can be toggled by button
+     * @param input1 raw input to the elevator - should be a joystick
      */
-    public void ManualInput(double input, boolean armToggle, boolean wristToggle, boolean elevatorToggle) {
+    public void ManualInput(double input1) {
 
-        Arm.setOutput(armToggle ? input : 0);
-        Wrist.setOutput(wristToggle ? input : 0);
-        Elevator.setOutput(elevatorToggle ? input : 0);
+        Elevator.setOutput(input1 * 1);
+        telemetry.addData("Elevator tick", Elevator.motor1.getCurrentPosition());
     }
 
     public void periodic() {
 
-        Arm.armPeriodic();
-        Wrist.armPeriodic();
-        Elevator.armPeriodic();
-        telemetry.addData("Arm Angle", Arm.getAngle());
-        telemetry.addData("Wrist Angle", Wrist.getAngle());
+        Elevator.Periodic();
         telemetry.addData("Elevator Inches", Elevator.getInches());
+    }
+
+    public void setAutoPosition(double ElevatorInches, double TimeoutS) {
+            runtime.reset();
+
+            Elevator.setInches(ElevatorInches);
+
+            while((runtime.seconds() < TimeoutS) &&
+                    !Elevator.atSetpoint()) {
+                //Periodic
+                //actually drives the Superstructure.
+                Elevator.Periodic();
+                telemetry.addData("SUPERSTRUCTURE STATUS", "RUNNING");
+                telemetry.addData("Elevator inches:", Elevator.getInches());
+                telemetry.update();
+            }
     }
 }

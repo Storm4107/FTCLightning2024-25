@@ -30,8 +30,8 @@ public class PincherSubsystem {
     }
 
     public void wristUp() {
-        leftWristServo.setPosition(.9);
-        rightWristServo.setPosition(-.9);
+        leftWristServo.setPosition(.95);
+        rightWristServo.setPosition(-.95);
     }
 
     public void noWrist() {
@@ -54,14 +54,9 @@ public class PincherSubsystem {
         pincher.setServos(0.2);
     }
 
-    //set pincher to wide open (for specimens off the wall)
-    public void wideOpen() {
-        pincher.setServos(.4);
-    }
-
     //set pincher to closed
     public void close() {
-        pincher.setServos(-1);
+        pincher.setServos(0);
     }
 
     //Presets
@@ -76,9 +71,7 @@ public class PincherSubsystem {
 
     public void wallPickup() {
        // open();
-        setPivotAngle(.07);
-        leftWristServo.setPosition(-.94);
-        rightWristServo.setPosition(.94);
+        setPivotAngle(1);
     }
 
     public void retract() {
@@ -88,13 +81,13 @@ public class PincherSubsystem {
     public void scoreSample() {
        leftWristServo.setPosition(-.7);
        rightWristServo.setPosition(.7);
-       setPivotAngle(.2);
+       setPivotAngle(.07);
     }
 
     public void scoreSpecimen() {
-        setPivotAngle(.07);
-        leftWristServo.setPosition(-.28);
-        rightWristServo.setPosition(.28);
+        setPivotAngle(1);
+        leftWristServo.setPosition(-.2);
+        rightWristServo.setPosition(.2);
     }
 
 

@@ -68,7 +68,7 @@ public class LateratorSubsystem {
     }
 
     public void groundPickUp() {
-        setPivotAngle(.5);
+        setPivotAngle(.47);
     }
 
 
@@ -77,8 +77,7 @@ public class LateratorSubsystem {
     }
 
     public void retract() {
-        setLaterator(.8);
-        //setPivotAngle(0);
+        setLaterator(.73);
     }
 
     public void dump() {

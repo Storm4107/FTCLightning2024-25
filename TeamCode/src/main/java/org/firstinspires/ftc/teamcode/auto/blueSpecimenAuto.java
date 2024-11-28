@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 @Config
-@Autonomous(name = "2025 - redSpecimenAuto", group = "Autonomous")
-public class redSpecimenAuto extends LinearOpMode {
+@Autonomous(name = "2025 - blueSpecimenAuto", group = "Autonomous")
+public class blueSpecimenAuto extends LinearOpMode {
     //Instantiate mechanisms
     private SuperstructureSubsystem m_Superstructure;
     private MecanumDriveSubsystem m_Drive;
@@ -71,21 +71,21 @@ public class redSpecimenAuto extends LinearOpMode {
         // It drops the first one to the human player
 
         m_Drive.AutoDriveRC(-4,0,2);
-        m_Drive.AutoDriveRC(0,-30, 5);
+        m_Drive.AutoDriveRC(0,30, 5);
         m_Drive.AutoDriveRC(19,0,3);
-        m_Drive.AutoDriveRC(0,10.5,3);
+        m_Drive.AutoDriveRC(0,-10.5,3);
         m_Drive.AutoDriveRC(-37,0,5);
 
         // It now does the second one
 
         m_Drive.AutoDriveRC(37,0,5);
-        m_Drive.AutoDriveRC(0,-12,4);
+        m_Drive.AutoDriveRC(0,12,4);
         m_Drive.AutoDriveRC(-37,0,5);
 
         // It now does the third/ last one
 
         m_Drive.AutoDriveRC(37,0,5);
-        m_Drive.AutoDriveRC(0,-12,4);
+        m_Drive.AutoDriveRC(0,12,4);
         m_Drive.AutoDriveRC(-37,0,5);
 
         // It will now pick up and score the next specimen
@@ -99,7 +99,7 @@ public class redSpecimenAuto extends LinearOpMode {
         m_Superstructure.pincher.close();
         sleep(300);
         m_Superstructure.pincher.scoreSpecimen();
-        m_Drive.AutoDriveRC(0,60,6);
+        m_Drive.AutoDriveRC(0,-60,6);
         m_Drive.AutoDriveRC(27.5,0,4);
         m_Superstructure.setAutoPosition(-300,3);
         sleep(300);
@@ -108,14 +108,14 @@ public class redSpecimenAuto extends LinearOpMode {
 
         // It will now get and the second specimen
 
-        m_Drive.AutoDriveRC(0,-60,6);
+        m_Drive.AutoDriveRC(0,60,6);
         m_Superstructure.scoreSpecimen();
         m_Drive.AutoDriveRC(-6,0,2);
         sleep(1000);
         m_Superstructure.pincher.close();
         sleep(300);
         m_Superstructure.pincher.scoreSpecimen();
-        m_Drive.AutoDriveRC(0,60,6);
+        m_Drive.AutoDriveRC(0,-60,6);
         m_Drive.AutoDriveRC(27.5,0,4);
         m_Superstructure.setAutoPosition(-300,3);
         sleep(300);
@@ -124,14 +124,14 @@ public class redSpecimenAuto extends LinearOpMode {
 
         // It will now get the third Specimen
 
-        m_Drive.AutoDriveRC(0,-60,6);
+        m_Drive.AutoDriveRC(0,60,6);
         m_Superstructure.scoreSpecimen();
         m_Drive.AutoDriveRC(-6,0,2);
         sleep(1000);
         m_Superstructure.pincher.close();
         sleep(300);
         m_Superstructure.pincher.scoreSpecimen();
-        m_Drive.AutoDriveRC(0,60,6);
+        m_Drive.AutoDriveRC(0,-60,6);
         m_Drive.AutoDriveRC(27.5,0,4);
         m_Superstructure.setAutoPosition(-300,3);
         sleep(300);
@@ -140,14 +140,14 @@ public class redSpecimenAuto extends LinearOpMode {
 
         // It will now get the last/fourth one
 
-        m_Drive.AutoDriveRC(0,-60,6);
+        m_Drive.AutoDriveRC(0,60,6);
         m_Superstructure.scoreSpecimen();
         m_Drive.AutoDriveRC(-6,0,2);
         sleep(1000);
         m_Superstructure.pincher.close();
         sleep(300);
         m_Superstructure.pincher.scoreSpecimen();
-        m_Drive.AutoDriveRC(0,60,6);
+        m_Drive.AutoDriveRC(0,-60,6);
         m_Drive.AutoDriveRC(27.5,0,4);
         m_Superstructure.setAutoPosition(-300,3);
         sleep(300);

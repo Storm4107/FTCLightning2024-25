@@ -28,7 +28,7 @@ public class SuperstructureSubsystem {
 
     private Telemetry telemetry;
 
-    ElapsedTime runtime;
+    private ElapsedTime runtime = new ElapsedTime();
 
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
@@ -71,7 +71,7 @@ public class SuperstructureSubsystem {
         laterator.retract();
         pincher.wristUp();
         pincher.open();
-        pincher.setPivotAngle(.42);
+        pincher.setPivotAngle(.37);
     }
 
     //Sample preset - Brings all mechanisms to pickup
@@ -97,8 +97,8 @@ public class SuperstructureSubsystem {
     //specimen preset - Brings all mechanisms to high rung / low basket
     public void lowPreset() {
 
-        Elevator.setInches(-800);
-        pincher.scoreSpecimen();
+        Elevator.setInches(-700);
+        //pincher.scoreSpecimen();
     }
 
     public void scoreSpecimen() {
@@ -115,6 +115,9 @@ public class SuperstructureSubsystem {
 
 
     }
+
+
+
 
     /**
      * Sets the Elevator/laterator into a manual input mode where the input can be toggled by button
@@ -137,8 +140,7 @@ public class SuperstructureSubsystem {
 
             Elevator.setInches(ElevatorInches);
 
-            while((runtime.seconds() < TimeoutS) &&
-                    !Elevator.atSetpoint()) {
+            while(runtime.seconds() < TimeoutS) {
                 //Periodic
                 //actually drives the Superstructure.
                 Elevator.Periodic();

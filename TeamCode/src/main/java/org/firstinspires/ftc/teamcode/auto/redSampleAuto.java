@@ -54,8 +54,66 @@ public class redSampleAuto extends LinearOpMode {
         // specimen 1
 
 
-        //Robot backs in to score the preload spec
-        m_Drive.AutoDriveRC(-14,0,5);
+        //init
+        m_Drive.autoInvert();
+        m_Drive.zeroPowerBrake();
+        m_Superstructure.pincher.close();
+        m_Superstructure.laterator.level();
+        m_Superstructure.laterator.retract();
+        sleep(1000);
+        //m_Superstructure.pincher.autoSamFront();
+        //sleep(1000);
+        m_Superstructure.setAutoPosition(-1670, 1);
+        sleep(500);
+        m_Superstructure.pincher.autoSamFront();
+        sleep(1000);
+        m_Drive.AutoDriveRC(-10,0,1);
+        m_Superstructure.pincher.open();
+        sleep(1000);
+        m_Superstructure.pincher.autoSamBack();
+        sleep(1000);
+        m_Superstructure.setAutoPosition(-500, 1);
+        m_Drive.AutoDriveRC(0, 20, 1);
+        sleep(500);
+        m_Drive.AutoDriveRC(-5, 0, 1);
+        sleep(500);
+        m_Drive.AutoDriveRC(0, 18, 1);
+        sleep(500);
+        //m_Superstructure.setAutoPosition(-500, 1);
+        m_Superstructure.laterator.setLaterator(.6);
+        m_Superstructure.laterator.groundPickUp();
+        m_Superstructure.laterator.intake();
+        sleep(2000);
+        m_Superstructure.laterator.level();
+        sleep(500);
+        m_Superstructure.laterator.retract();
+        //m_Superstructure.laterator.stopIntake();
+        sleep(1000);
+        m_Drive.AutoDriveRC(0, -38, 2);
+        sleep(2000);
+        m_Superstructure.pincher.autoSamBack();
+        m_Superstructure.setAutoPosition(-0, 1);
+        sleep(500);
+        m_Superstructure.pincher.close();
+        sleep(500);
+        m_Superstructure.setAutoPosition(-1600, 1);
+        m_Superstructure.pincher.autoSamFront();
+        sleep(1000);
+        m_Drive.AutoDriveRC(-3.5, 0, 1);
+        sleep(1000);
+        m_Superstructure.pincher.open();
+        sleep(1000);
+        m_Superstructure.pincher.autoSamBack();
+        sleep(1000);
+        m_Drive.AutoDriveRC(5, 0, 1);
+        m_Superstructure.setAutoPosition(0, 1);
+        sleep(1000000);
+
+        //sleep(100000);
+        //m_Drive.AutoDriveRC(0, -26, 1);
+       // m_Drive.AutoDriveRC(-5, 0, 3);
+
+        /*
         //score specimen
         //reset
 
@@ -75,6 +133,8 @@ public class redSampleAuto extends LinearOpMode {
         //pick up
         //retract
         //handoff
+
+         */
 
 
 

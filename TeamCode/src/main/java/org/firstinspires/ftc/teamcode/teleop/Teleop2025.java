@@ -132,11 +132,11 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
-                    m_Superstructure.pincher.setPivotAngle(0.42);
+                    //m_Superstructure.pincher.setPivotAngle(0.42);
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
-                    m_Superstructure.pincher.setPivotAngle(0.07);
+                    m_Superstructure.laterator.setLaterator(.6);
                 }
 
                 telemetry.update();

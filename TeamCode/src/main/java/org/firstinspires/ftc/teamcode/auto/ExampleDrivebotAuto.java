@@ -30,17 +30,31 @@ public class ExampleDrivebotAuto extends LinearOpMode {
 
 
         if (isStopRequested()) return;
+        m_Drive.zeroPowerBrake();
 
+        //1 inch of error
+        //-.1444444 degrees per inch of error
         //Put auto steps here
-        m_Drive.AutoDriveRC(12, 0, 5);
+        //m_Drive.AutoDriveRC(12, 0, 5);
         //Drive the robot forward 1 foot.
-        m_Drive.AutoDriveRC(0, 12, 5);
+       // m_Drive.AutoDriveRC(0, 12, 5);
         //Drive the robot Left 1 foot.
-        m_Drive.AutoDriveRC(-12, 0, 5);
+       // m_Drive.AutoDriveRC(-12, 0, 5);
         //Drive the robot backward 1 foot.
-        m_Drive.AutoDriveRC(12, -12, 5);
+       // m_Drive.AutoDriveRC(12, -12, 5);
         //Drive the robot right 1 foot.
-        m_Drive.SetHeading(90, 3);
+       // m_Drive.SetHeading(90, 3);
         //Set heading to 90 degrees
+        m_Drive.autoInvert();
+        m_Superstructure.laterator.level();
+        m_Superstructure.laterator.retract();
+        m_Drive.AutoDriveRC(0, 15, 1);
+        //sleep(1000);
+        //m_Drive.AutoDriveRC(30, 0, 1);
+       // sleep(1000);
+       // m_Drive.AutoDriveRC(30, 0, 1);
+        sleep(10000000);
+
+
     }
 }

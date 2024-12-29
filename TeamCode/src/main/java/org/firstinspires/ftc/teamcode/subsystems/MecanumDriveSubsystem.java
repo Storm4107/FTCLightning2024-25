@@ -87,12 +87,12 @@ public class MecanumDriveSubsystem {
 
     public int getForwardTicks(){
         //assumes Forward deadwheel is plugged into LeftFront
-        return -leftFront.getCurrentPosition();
+        return leftFront.getCurrentPosition();
     }
 
     public int getStrafeTicks(){
         //assumes Forward deadwheel is plugged into RightBack
-        return rightBack.getCurrentPosition();
+        return -rightBack.getCurrentPosition();
     }
 
     public void resetDriveEncoders() {
@@ -106,6 +106,11 @@ public class MecanumDriveSubsystem {
         leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public void autoInvert(){
+        leftFront.setInverted(true);
+        rightBack.setInverted(true);
     }
 
     public void drivePeriodic() {

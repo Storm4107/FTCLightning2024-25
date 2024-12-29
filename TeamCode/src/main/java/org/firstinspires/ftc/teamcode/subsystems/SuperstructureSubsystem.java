@@ -71,7 +71,7 @@ public class SuperstructureSubsystem {
         Elevator.setInches(-400);
         laterator.retract();
         pincher.wristUp();
-        pincher.wideOpen();
+        pincher.open();
         pincher.setPivotAngle(.42);
     }
 
@@ -99,7 +99,7 @@ public class SuperstructureSubsystem {
     public void lowPreset() {
 
         Elevator.setInches(-800);
-        //pincher.scoreSpecimen();
+        pincher.scoreSpecimen();
     }
 
     public void scoreSpecimen() {

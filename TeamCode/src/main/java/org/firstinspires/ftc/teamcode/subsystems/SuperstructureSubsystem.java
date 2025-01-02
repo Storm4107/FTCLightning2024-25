@@ -29,7 +29,7 @@ public class SuperstructureSubsystem {
     private Telemetry telemetry;
 
 
-    ElapsedTime runtime;
+    private ElapsedTime runtime = new ElapsedTime();
 
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
@@ -68,11 +68,11 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to 0
     public void zeroPreset() {
 
-        Elevator.setInches(-350);
+        Elevator.setInches(-320);
         laterator.retract();
         pincher.wristUp();
         pincher.open();
-        pincher.setPivotAngle(.42);
+        //pincher.setPivotAngle(.42);
     }
 
     //Sample preset - Brings all mechanisms to pickup
@@ -91,15 +91,15 @@ public class SuperstructureSubsystem {
 
     public void HandoffPreset() {
 
-        Elevator.setInches(0);
+        Elevator.setInches(-130);
         laterator.retract();
     }
 
     //Sample preset - Brings all mechanisms to high rung
     public void lowPreset() {
 
-        Elevator.setInches(-300);
-        pincher.scoreSpecimen();
+        Elevator.setInches(-650);
+        //pincher.scoreSpecimen();
     }
 
     public void scoreSpecimen() {
@@ -110,7 +110,7 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to high bucket
     public void highPreset() {
 
-        Elevator.setInches(-1750);
+        Elevator.setInches(-1630);
         laterator.retract();
         pincher.scoreSample();
 
@@ -138,8 +138,7 @@ public class SuperstructureSubsystem {
 
             Elevator.setInches(ElevatorInches);
 
-            while((runtime.seconds() < TimeoutS) &&
-                    !Elevator.atSetpoint()) {
+            while((runtime.seconds() < TimeoutS)){
                 //Periodic
                 //actually drives the Superstructure.
                 Elevator.Periodic();

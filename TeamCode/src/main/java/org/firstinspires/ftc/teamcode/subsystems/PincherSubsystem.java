@@ -7,31 +7,38 @@ import org.firstinspires.ftc.teamcode.hardware.ServoActuator;
 
 public class PincherSubsystem {
     private ServoActuator pincher;
-    private ServoActuator pivot;
+    //private ServoActuator pivot;
     private ServoActuator leftWrist;
     private ServoActuator rightWrist;
 
     private Servo pincherServo;
-    private Servo pivotServo;
+    //private Servo pivotServo;
     private Servo leftWristServo;
     private Servo rightWristServo;
 
     public PincherSubsystem(HardwareMap Map) {
         //Servo hardwaremap setup
         pincherServo = Map.get(Servo.class, "pincherServo");
-        pivotServo = Map.get(Servo.class, "pivotServo");
+        //pivotServo = Map.get(Servo.class, "pivotServo");
         leftWristServo = Map.get(Servo.class, "leftWristServo");
         rightWristServo = Map.get(Servo.class, "rightWristServo");
 
         //Hardware compilation
         pincher = new ServoActuator(pincherServo);
-        pivot = new ServoActuator(pivotServo);
+        leftWrist = new
+                ServoActuator(leftWristServo);
+        rightWrist = new
+                ServoActuator(rightWristServo);
+    }
 
+    //set the angle of the wrist
+    public void setWristAngle(double value) {
+        leftWrist.setServos(value);
+        rightWrist.setServos(1-value);
     }
 
     public void wristUp() {
-        leftWristServo.setPosition(.9);
-        rightWristServo.setPosition(-.9);
+        setWristAngle(1);
     }
 
     public void noWrist() {
@@ -44,57 +51,48 @@ public class PincherSubsystem {
         rightWristServo.setPosition(.4);
     }
 
-    //set the angle of the pivot
-    public void setPivotAngle(double angle) {
-        pivot.setServos(angle);
-    }
 
     //set pincher to open
     public void open() {
-        pincher.setServos(0.2);
+        pincher.setServos(.24);
     }
 
     //set pincher to wide open (for specimens off the wall)
-    public void wideOpen() {
-        pincher.setServos(.4);
+    public void wideOpen() { pincher.setServos(0);
     }
 
     //set pincher to closed
-    public void close() {
-        pincher.setServos(-1);
+    public void close() { pincher.setServos(.4);
     }
 
     //Presets
     public void untuck() {
         close();
-        setPivotAngle(0.3);
+        //setPivotAngle(0.3);
     }
     public void tuck() {
-        setPivotAngle(0.3);
+        //setPivotAngle(0.3);
         close();
     }
 
     public void wallPickup() {
        // open();
-        setPivotAngle(.07);
-        leftWristServo.setPosition(-.94);
-        rightWristServo.setPosition(.94);
+        //setPivotAngle(.07);
+        setWristAngle(0.03);
     }
 
-    public void retract() {
-        setPivotAngle(0);
-    }
+    //public void retract() {
+        //setPivotAngle(0);
+    //}
 
     public void scoreSample() {
-       leftWristServo.setPosition(-.7);
-       rightWristServo.setPosition(.7);
-       setPivotAngle(.2);
+       setWristAngle(.25);
+       //setPivotAngle(.2);
     }
 
     public void scoreSpecimen() {
-        setPivotAngle(.07);
-        leftWristServo.setPosition(-.28);
-        rightWristServo.setPosition(.28);
+        //setPivotAngle(.07);
+        setWristAngle(.6);
     }
 
 

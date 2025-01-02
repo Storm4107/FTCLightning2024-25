@@ -87,7 +87,7 @@ public class MecanumDriveSubsystem {
 
     public int getForwardTicks(){
         //assumes Forward deadwheel is plugged into LeftFront
-        return -leftFront.getCurrentPosition();
+        return leftFront.getCurrentPosition();
     }
 
     public int getStrafeTicks(){
@@ -108,6 +108,11 @@ public class MecanumDriveSubsystem {
         rightBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
     }
 
+    public void autoInvert(){
+        leftFront.setInverted(true);
+        rightBack.setInverted(true);
+    }
+
     public void drivePeriodic() {
         telemetry.addData("Heading", getHeading());
         //Called once per scheduler run
@@ -119,8 +124,9 @@ public class MecanumDriveSubsystem {
     //TODO: PID for Strafe/translation/heading needs to be tuned.
 
     //finds the amount of ticks to move for a given distance in inches
+    //line 129 austin added whatever the auto-fill was because nothing was there and it would not let me push code without having something there xoxo.
     public static int driveDistance(double distance) {
-        double drive = (Constants.AutoConstants.COUNTS_PER_INCH);
+        double drive = (Constants.AutoConstants.AutoGain);
         int outputTicks = (int) Math.floor(drive * distance);
         return outputTicks;
     }

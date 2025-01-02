@@ -46,11 +46,9 @@ public class LateratorSubsystem {
     }
 
     //set pincher to open
-    public void intake() {
-        intakeServo.setPower(-1);
+    public void intake() {intakeServo.setPower(1);
     }
-    public void outake() {
-        intakeServo.setPower(1);
+    public void outake() {intakeServo.setPower(-1);
     }
     public void stopIntake() {
         intakeServo.setPower(0);
@@ -64,20 +62,18 @@ public class LateratorSubsystem {
 
 
     public void level() {
-        setPivotAngle(.31);
+        setPivotAngle(.78);
     }
 
-    public void groundPickUp() {
-        setPivotAngle(.5);
+    public void groundPickUp() {setPivotAngle(.9);
     }
-
 
     public void discard() {
-        setPivotAngle(-1);
+        setPivotAngle(.3);
     }
 
     public void retract() {
-        setLaterator(.8);
+        setLaterator(.628);
         //setPivotAngle(0);
     }
 

@@ -133,19 +133,20 @@ public class SuperstructureSubsystem {
         telemetry.addData("Elevator Inches", Elevator.getInches());
     }
 
-    public void setAutoPosition(double ElevatorInches, double TimeoutS) {
-            runtime.reset();
+    public void setAutoPosition(double ElevatorInches, double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        Elevator.setInches(ElevatorInches);
 
-            Elevator.setInches(ElevatorInches);
+        if((initialTime < currentTime) && (currentTime<= endTime)) {
 
-            while((runtime.seconds() < TimeoutS) &&
-                    !Elevator.atSetpoint()) {
-                //Periodic
-                //actually drives the Superstructure.
-                Elevator.Periodic();
-                telemetry.addData("SUPERSTRUCTURE STATUS", "RUNNING");
-                telemetry.addData("Elevator inches:", Elevator.getInches());
-                telemetry.update();
-            }
+
+            //Periodic
+            //actually drives the Superstructure.
+            Elevator.Periodic();
+            telemetry.addData("SUPERSTRUCTURE STATUS", "RUNNING");
+            telemetry.addData("Elevator ticks:", Elevator.getInches());
+            telemetry.update();
+        }
+
     }
 }

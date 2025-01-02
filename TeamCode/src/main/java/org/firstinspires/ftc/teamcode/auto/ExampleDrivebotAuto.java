@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.hardware.vision.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
+import org.firstinspires.ftc.teamcode.hardware.sensors.revDistanceSensor;
 
 @Config
 @Autonomous(name = "2025 - ExampleDrivebotAuto", group = "Autonomous")
@@ -14,6 +15,7 @@ public class ExampleDrivebotAuto extends LinearOpMode {
     //Instantiate mechanisms
     private SuperstructureSubsystem m_Superstructure;
     private MecanumDriveSubsystem m_Drive;
+    private revDistanceSensor m_Distance;
 
     @Override
     public void runOpMode() {
@@ -31,6 +33,7 @@ public class ExampleDrivebotAuto extends LinearOpMode {
 
         if (isStopRequested()) return;
         m_Drive.zeroPowerBrake();
+        m_Distance.runDigitalSensor();
 
         //1 inch of error
         //-.1444444 degrees per inch of error
@@ -47,8 +50,8 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         //Set heading to 90 degrees
         m_Drive.autoInvert();
         m_Superstructure.laterator.level();
-        m_Superstructure.laterator.retract();
-        m_Drive.AutoDriveRC(0, 15, 1);
+        //m_Superstructure.laterator.retract();
+        //m_Drive.AutoDriveRC(0, 15, 1);
         //sleep(1000);
         //m_Drive.AutoDriveRC(30, 0, 1);
        // sleep(1000);

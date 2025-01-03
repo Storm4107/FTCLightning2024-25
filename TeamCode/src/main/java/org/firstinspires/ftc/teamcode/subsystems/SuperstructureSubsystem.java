@@ -104,7 +104,7 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to high rung
     public void lowPreset() {
 
-        Elevator.setInches(-750);
+        Elevator.setInches(-820);
         //pincher.scoreSpecimen();
     }
 

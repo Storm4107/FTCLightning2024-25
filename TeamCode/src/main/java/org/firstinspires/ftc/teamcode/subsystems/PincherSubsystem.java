@@ -38,7 +38,7 @@ public class PincherSubsystem {
     }
 
     public void wristUp() {
-        setWristAngle(1);
+        setWristAngle(.9925);
     }
 
     public void noWrist() {
@@ -46,7 +46,7 @@ public class PincherSubsystem {
         rightWristServo.setPosition(.7);
     }
 
-    public void wristDown() {
+   public void wristDown() {
         leftWristServo.setPosition(-.4);
         rightWristServo.setPosition(.4);
     }
@@ -79,6 +79,7 @@ public class PincherSubsystem {
        // open();
         //setPivotAngle(.07);
         setWristAngle(0.03);
+        wideOpen();
     }
 
     //public void retract() {

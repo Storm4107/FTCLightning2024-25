@@ -65,8 +65,7 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
-                    m_Superstructure.Elevator.setInches(0);
-                    m_Superstructure.pincher.wallPickup();
+                   m_Superstructure.wallPickupPreset();
                 }
 
 
@@ -136,7 +135,7 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
-                    m_Superstructure.laterator.setLaterator(.53);
+                    m_Superstructure.laterator.shortExtend();
                 }
 
                 telemetry.update();

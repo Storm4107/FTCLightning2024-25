@@ -56,16 +56,19 @@ public class LateratorSubsystem {
 
     //Presets
     public void extend() {
-        setLaterator(0.4);
-        setPivotAngle(.4);
+        setLaterator(0.37 );
+        //setPivotAngle(.4);
     }
 
+    public void shortExtend() {
+        setLaterator(.58);
+    }
 
     public void level() {
-        setPivotAngle(.78);
+        setPivotAngle(.7415);
     }
 
-    public void groundPickUp() {setPivotAngle(.9);
+    public void groundPickUp() {setPivotAngle(.898);
     }
 
     public void discard() {

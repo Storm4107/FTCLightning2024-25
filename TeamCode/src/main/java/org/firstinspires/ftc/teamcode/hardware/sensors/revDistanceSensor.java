@@ -7,11 +7,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 public class revDistanceSensor {
 
-    private DistanceSensor distanceSensor;
+    private DistanceSensor sensorDistance;
     private Telemetry telemetry;
     private String Distance1;
 
@@ -28,7 +30,10 @@ public class revDistanceSensor {
     public revDistanceSensor(HardwareMap Map, Telemetry telemetry, String Distance1) {
         this.telemetry = telemetry;
 
-        distanceSensor = Map.get(DistanceSensor.class, Distance1);
+        sensorDistance = Map.get(DistanceSensor.class, "sensor_distance");
+    }
+
+    public revDistanceSensor(HardwareMap hardwareMap, Telemetry telemetry) {
     }
 
     /**
@@ -40,22 +45,22 @@ public class revDistanceSensor {
             m_Superstructure.zeroPreset();
         }
 
-        telemetry.addData("deviceName", distanceSensor.getDeviceName());
-        telemetry.addData("range", String.format("%.01f cm", distanceSensor.getDistance(DistanceUnit.CM)));
-        telemetry.addData("range", String.format("%.01f in", distanceSensor.getDistance(DistanceUnit.INCH)));
+        telemetry.addData("deviceName", sensorDistance.getDeviceName());
+        telemetry.addData("range", String.format("%.01f cm", sensorDistance.getDistance(DistanceUnit.CM)));
+        telemetry.addData("range", String.format("%.01f in", sensorDistance.getDistance(DistanceUnit.INCH)));
     }
 
     /**
      * returns the CM distance value of the sensor.
      */
     public double getCM() {
-        return distanceSensor.getDistance(DistanceUnit.CM);
+        return sensorDistance.getDistance(DistanceUnit.CM);
     }
 
     /**
      * returns the Inches distance value of the sensor.
      */
     public double getInches() {
-        return distanceSensor.getDistance(DistanceUnit.INCH);
+        return sensorDistance.getDistance(DistanceUnit.INCH);
     }
 }

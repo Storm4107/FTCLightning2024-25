@@ -38,7 +38,7 @@ public class ExampleDrivebotAuto extends LinearOpMode {
             runtime.reset();
 
             //init commands
-            m_Superstructure.pincher.close();
+
 
 
         }
@@ -48,9 +48,9 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         if (isStopRequested()) return;
         while (opModeIsActive()) {
             telemetry.addData("Current time", runtime.seconds());
-
-            m_Drive.AutoDriveRC(2, 0, 0, 2, runtime);
-            m_Drive.SetHeading(180, 3, 30, runtime);
+            //m_Drive.SetHeading(180, 1, 30, runtime);
+            //m_Drive.AutoDriveRC(0, 10, .5, 10, runtime);
+            m_Superstructure.pincher.wristUpWithScheduler(1,2,runtime);
         }
 
     }

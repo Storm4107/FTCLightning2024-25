@@ -65,8 +65,7 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
-                    m_Superstructure.Elevator.setInches(0);
-                    m_Superstructure.pincher.wallPickup();
+                    m_Superstructure.wallPickup();
                 }
 
 
@@ -88,6 +87,11 @@ public class Teleop2025 extends LinearOpMode {
                 } else {
                     m_Superstructure.laterator.level();
                 }
+
+                // reset ele in tele
+             if (Driver.getButton(GamepadKeys.Button.START)) {
+                 m_Superstructure.resetElevator();
+             }
 
 
 
@@ -131,16 +135,9 @@ public class Teleop2025 extends LinearOpMode {
                             "MANUAL INPUT", "ENABLED");
                 }
 
-                if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
-                    //m_Superstructure.pincher.setPivotAngle(0.42);
-                }
-
                 if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
 
-                    m_Superstructure.laterator.setLaterator(.75);
-
-                    m_Superstructure.laterator.setLaterator(.6);
-
+                    m_Superstructure.laterator.shortExtend();
                 }
 
                 telemetry.update();

@@ -72,15 +72,37 @@ public class SuperstructureSubsystem {
         laterator.retract();
         pincher.wristUp();
         pincher.open();
-        pincher.setPivotAngle(.42);
     }
 
-    //Sample preset - Brings all mechanisms to pickup
-    public void groundPickupPreset() {
+    public void zeroPresetAuto() {
+        laterator.retract();
+        pincher.close();
+        laterator.level();
+    }
 
+    public void elevatorDownWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            Elevator.setInches(-400);
+            periodic();
+        }
+    }
+
+    public void groundPickupPreset() {
         laterator.extend();
     }
+    public void wallPickup() {
+        Elevator.setInches(0);
+        pincher.wallPickup();
+    }
 
+    public void wallPickupWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            wallPickup();
+            periodic();
+        }
+    }
     public void tuckLaterator() {
 
         Elevator.setInches(6);
@@ -91,17 +113,45 @@ public class SuperstructureSubsystem {
 
     public void HandoffPreset() {
 
-        Elevator.setInches(0);
-        //laterator.retract();
+        Elevator.setInches(-135);
+        laterator.retract();
     }
 
-    //specimen preset - Brings all mechanisms to high rung / low basket
+    public void HandoffPresetWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            HandoffPreset();
+            periodic();
+        }
+    }
+
+    public void resetElevatorWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            Elevator.setInches(0);
+            periodic();
+        }
+    }
+            //specimen preset - Brings all mechanisms to high rung / low basket
     public void lowPreset() {
 
-        Elevator.setInches(-800);
-        pincher.scoreSpecimen();
+        Elevator.setInches(-850);
+        //pincher.scoreSpecimen();
     }
 
+    // resets the elevator
+    public void resetElevator() {
+        elevatorMotor2.stopAndResetEncoder();
+        elevatorMotor1.stopAndResetEncoder();
+    }
+
+    public void lowPresetWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            lowPreset();
+            periodic();
+        }
+    }
     public void scoreSpecimen() {
 
         Elevator.setInches(-400);
@@ -110,13 +160,18 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to high bucket
     public void highPreset() {
 
-        Elevator.setInches(-1750);
+        Elevator.setInches(-1630);
         laterator.retract();
         pincher.scoreSample();
-
-
     }
 
+    public void highPresetWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            highPreset();
+            periodic();
+        }
+    }
     /**
      * Sets the Elevator/laterator into a manual input mode where the input can be toggled by button
      * @param input1 raw input to the elevator - should be a joystick

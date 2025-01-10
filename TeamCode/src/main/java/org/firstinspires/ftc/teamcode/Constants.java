@@ -28,15 +28,15 @@ public class Constants {
 
         //Initial counts / elevator stages returns the counts per inch for a cascade elevator.
         public static final double elevatorCPI = initialCPI / elevatorStages;
-        public static final PIDCoefficients elevatorPID = new PIDCoefficients(0.005, 0.0000, 0);
+        public static final PIDCoefficients elevatorPID = new PIDCoefficients(0.002, 0.1, 0.000001);
     }
 
     public static class AutoConstants {
         public static final double COUNTS_PER_INCH = 279.797101; //Found empirically with drive tuning
-        public static final PIDCoefficients TranslationPID = new PIDCoefficients(0.0005, 0.00000  , 0);
-        public static final PIDCoefficients StrafePID = new PIDCoefficients(0.0005, 0.00000, 0.000);
-        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0, 0, 0.0);
-        public static final double AutoGain = 0.75; // All movements in auto are multiplied by this number. Can be used to reduce overall speed.
+        public static final PIDCoefficients TranslationPID = new PIDCoefficients(0.00023, 0.00000  , 0);
+        public static final PIDCoefficients StrafePID = new PIDCoefficients(0.0005, 0.00000, 0.005);
+        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.02, 0, 0.003);
+        public static final double AutoGain = 1; // All movements in auto are multiplied by this number. Can be used to reduce overall speed.
         public static double PIDTolerance = 200; //Tolerance in TICKS
     }
 }

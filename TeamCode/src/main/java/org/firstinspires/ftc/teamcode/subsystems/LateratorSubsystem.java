@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.ServoActuator;
 
@@ -47,37 +48,93 @@ public class LateratorSubsystem {
 
     //set pincher to open
     public void intake() {
-        intakeServo.setPower(-1);
+        intakeServo.setPower(1);
+    }
+
+    public void intakeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            intake();
+        }
     }
     public void outake() {
-        intakeServo.setPower(1);
+        intakeServo.setPower(-1);}
+
+    public void outakeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            outake();
+        }
     }
     public void stopIntake() {
         intakeServo.setPower(0);
     }
 
+    public void stopIntakeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            stopIntake();
+        }
+    }
     //Presets
     public void extend() {
-        setLaterator(0.4);
-        setPivotAngle(.4);
+        setLaterator(0.37);
     }
 
+    public void extendWithScheduler(
+            double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            extend();
+        }
+    }
 
     public void level() {
-        setPivotAngle(.31);
+        setPivotAngle(.73);
+    }
+
+    public void levelWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            level();
+        }
+    }
+
+    public void shortExtend() {
+        setLaterator(.58);
+    }
+
+    public void shortExtendWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            shortExtend();
+        }
     }
 
     public void groundPickUp() {
-        setPivotAngle(.47);
+        setPivotAngle(.898);
     }
 
+    public void groundPickupWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            groundPickUp();
+        }
+    }
 
     public void discard() {
-        setPivotAngle(-1);
+        setPivotAngle(.3);
     }
 
     public void retract() {
-        setLaterator(.73);
+        setLaterator(.63);
+    }
+
+    public void retractWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            retract();
+        }
     }
 
     public void dump() {

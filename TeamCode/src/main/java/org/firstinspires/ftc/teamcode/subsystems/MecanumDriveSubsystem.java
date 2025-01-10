@@ -131,7 +131,7 @@ public class MecanumDriveSubsystem {
 
     public int getForwardTicks(){
         //assumes Forward deadwheel is plugged into LeftFront
-        return -leftFront.getCurrentPosition();
+        return leftFront.getCurrentPosition();
     }
 
     public int getStrafeTicks(){
@@ -249,12 +249,12 @@ public class MecanumDriveSubsystem {
         PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
         HeadingController.setTolerance(0.1);
 
-        HeadingController.setSetPoint(HeadingTarget);
+        HeadingController.setSetPoint(calculateContinousSetpoint(getHeading(), HeadingTarget));
 
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             //Drivebot Periodic
             //actually drives the robot.
-            DriveRobotRelative(0, HeadingController.calculate(getHeading(), HeadingTarget), 0, false);
+            DriveRobotRelative(0, HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), HeadingTarget)), 0, false);
             telemetry.addData("AUTO DRIVE STATUS", "HEADING");
             telemetry.addData("Heading;", getHeading());
             telemetry.update();

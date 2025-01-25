@@ -40,11 +40,11 @@ public class FFTuning extends LinearOpMode {
                 }
 
                 //Drivetrain method
-                m_Drive.DriveRobotRelative(Driver.getLeftX() * 0.01, Driver.getLeftY() * 0.01, Driver.getRightX() * 0.1, Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+                m_Drive.DriveRobotRelative(Driver.getLeftX() * 0.01, Driver.getLeftY() * 0.01, Driver.getRightX() * 0.2, Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
 
             telemetry.addData(
                     "Turning FF Constant",
-                    Driver.getRightX() * 0.1);
+                    Driver.getRightX() * 0.2);
 
 
 

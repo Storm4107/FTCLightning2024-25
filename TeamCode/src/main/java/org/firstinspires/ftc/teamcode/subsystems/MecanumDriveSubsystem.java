@@ -170,10 +170,10 @@ public class MecanumDriveSubsystem {
 
     //TODO: Figure out FF directions
     public static double calculateFFDirection(double input) {
-        if (input > 0) {
+        if (input < 0) {
             return Constants.AutoConstants.leftFF;
         } else {
-            if (input < 0) {
+            if (input > 0) {
                 return Constants.AutoConstants.rightFF;
             } else {
                 return 0;

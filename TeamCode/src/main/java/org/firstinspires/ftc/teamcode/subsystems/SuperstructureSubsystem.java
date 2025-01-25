@@ -111,6 +111,13 @@ public class SuperstructureSubsystem {
         pincher.untuck();
     }
 
+    public void prepSpecWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            Elevator.setInches(-250);
+            periodic();
+        }
+    }
     public void HandoffPreset() {
 
         Elevator.setInches(-135);

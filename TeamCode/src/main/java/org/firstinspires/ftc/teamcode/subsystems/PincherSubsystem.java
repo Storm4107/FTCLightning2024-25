@@ -38,7 +38,7 @@ public class PincherSubsystem {
     }
 
     public void wristUp() {
-        setWrisAngle(.9975);
+        setWrisAngle(.985);
     }
 
     public void wristUpWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -90,7 +90,7 @@ public class PincherSubsystem {
     }
 
     public void wallPickup() {
-       setWrisAngle(.03);
+       setWrisAngle(0);
         wideOpen();
     }
 
@@ -102,7 +102,7 @@ public class PincherSubsystem {
     }
 
     public void scoreSample() {
-        setWrisAngle(.3);
+        setWrisAngle(.22);
     }
 
     public void scoreSampleWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -112,7 +112,7 @@ public class PincherSubsystem {
         }
     }
     public void scoreSpecimen() {
-       setWrisAngle(.6);
+       setWrisAngle(.525);
     }
 
     public void scoreSpecimenWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -122,4 +122,12 @@ public class PincherSubsystem {
         }
     }
 
+    public void lowTaperFade() {setWrisAngle(.65); }
+
+    public void lowTaperFadeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if ((initialTime < currentTime) && (currentTime <= endTime)) {
+            lowTaperFade();
+        }
+    }
 }

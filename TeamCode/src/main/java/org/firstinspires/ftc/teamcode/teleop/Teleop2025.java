@@ -136,8 +136,11 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
-
                     m_Superstructure.laterator.shortExtend();
+                }
+
+                if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
+                    m_Superstructure.pincher.lowTaperFade();
                 }
 
                 telemetry.update();

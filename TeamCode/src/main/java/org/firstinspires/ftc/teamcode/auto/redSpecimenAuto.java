@@ -33,6 +33,8 @@ public class redSpecimenAuto extends LinearOpMode {
             telemetry.update();
             runtime.reset();
             telemetry.addData("Auto", "Selected");
+
+          // TODO: 1/11/2025
             m_Superstructure.pincher.setWrisAngle(.7);
             m_Superstructure.zeroPresetAuto();
 
@@ -45,14 +47,13 @@ public class redSpecimenAuto extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            m_Superstructure.pincher.scoreSpecimenWithScheduler(0,1, runtime);
-            m_Drive.AutoDriveRC(35,0, 0, 2.5, runtime);
-            m_Drive.SetHeading(0, 2.51, 3, runtime);
-            m_Drive.AutoDriveRC(8, 0, 3, 4, runtime);
-            m_Superstructure.lowPresetWithScheduler(4.1, 6, runtime);
-            m_Superstructure.pincher.wideOpenWithScheduler(6.1, 7, runtime);
-            m_Drive.AutoDriveRC(-10, 0, 6.5, 8.5, runtime);
-            m_Superstructure.resetElevatorWithScheduler(7.5, 30, runtime);
+            m_Superstructure.pincher.lowTaperFadeWithScheduler(0,1, runtime);
+            m_Superstructure.prepSpecWithScheduler(0, 2,runtime);
+            m_Drive.AutoDriveRC(33,0, 0, 1.95, runtime);
+            m_Drive.SetHeading(0, 2, 2.75, runtime);
+            m_Superstructure.lowPresetWithScheduler(2.76, 4, runtime);
+            m_Superstructure.pincher.wideOpenWithScheduler(4.1, 5, runtime);
+            m_Drive.AutoDriveRC(-10, 0, 5.5, 7, runtime);
 
 
 

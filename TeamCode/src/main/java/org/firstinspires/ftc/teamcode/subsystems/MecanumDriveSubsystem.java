@@ -28,10 +28,10 @@ import org.firstinspires.ftc.teamcode.Constants;
 public class MecanumDriveSubsystem {
     public MecanumDrive Drive;
 
-    private Motor leftFront;
-    private Motor rightFront;
-    private Motor leftBack;
-    private Motor rightBack;
+    public Motor leftFront;
+    public Motor rightFront;
+    public Motor leftBack;
+    public Motor rightBack;
     private Telemetry telemetry;
 
     private double IMUOffset;

@@ -39,7 +39,7 @@ public class Constants {
         public static final double AutoGain = 1; // All movements in auto are multiplied by this number. Can be used to reduce overall speed.
         public static double PIDTolerance = 200; //Tolerance in TICKS
 
-        public static double leftFF = 0;
-        public static double rightFF = 0;
+        public static double rightFF = -0.108;
+        public static double leftFF = 0.12;
     }
 }

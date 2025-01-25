@@ -168,6 +168,19 @@ public class MecanumDriveSubsystem {
         return outputTicks;
     }
 
+    //TODO: Figure out FF directions
+    public static double calculateFFDirection(double input) {
+        if (input > 0) {
+            return Constants.AutoConstants.leftFF;
+        } else {
+            if (input < 0) {
+                return Constants.AutoConstants.rightFF;
+            } else {
+                return 0;
+            }
+        }
+    }
+
     /**
      * Autonomously drive robot centric.
      * @param Forward forward/backward in inches (forward is positive)
@@ -180,6 +193,7 @@ public class MecanumDriveSubsystem {
         int ForwardTarget;
         int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
+        double initialHeading = getHeading();
 
         double currentTime = runtime.seconds();
 
@@ -210,7 +224,7 @@ public class MecanumDriveSubsystem {
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             //Drivebot Periodic
             //actually drives the robot.
-            DriveRobotRelative((StrafeController.calculate(getStrafeTicks(), StrafeTarget)  * gain), (TranslationController.calculate(getForwardTicks(), ForwardTarget) * gain), HeadingController.calculate(getHeading(), getHeading()), false);
+            DriveRobotRelative((StrafeController.calculate(getStrafeTicks(), StrafeTarget)  * gain), (TranslationController.calculate(getForwardTicks(), ForwardTarget) * gain), HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading)) + calculateFFDirection(HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading))), false);
             telemetry.addData("AUTO DRIVE STATUS", "RUNNING");
             telemetry.addData("X Travelled;", getForwardTicks());
             telemetry.addData("Y Travelled;", getStrafeTicks());
@@ -254,7 +268,7 @@ public class MecanumDriveSubsystem {
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             //Drivebot Periodic
             //actually drives the robot.
-            DriveRobotRelative(0, HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), HeadingTarget)), 0, false);
+            DriveRobotRelative(0, HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), HeadingTarget)) + calculateFFDirection(HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), HeadingTarget))), 0, false);
             telemetry.addData("AUTO DRIVE STATUS", "HEADING");
             telemetry.addData("Heading;", getHeading());
             telemetry.update();

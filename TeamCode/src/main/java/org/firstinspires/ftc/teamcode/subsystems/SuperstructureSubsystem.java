@@ -175,7 +175,7 @@ public class SuperstructureSubsystem {
     public void highPresetWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
         if ((initialTime < currentTime) && (currentTime <= endTime)) {
-            highPreset();
+            Elevator.setInches(-1630);
             periodic();
         }
     }

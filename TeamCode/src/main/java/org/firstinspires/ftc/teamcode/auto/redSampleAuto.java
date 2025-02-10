@@ -31,7 +31,8 @@ public class redSampleAuto extends LinearOpMode {
             telemetry.addData("Auto", "Selected");
 
             // TODO: 1/11/2025
-            m_Superstructure.pincher.setWrisAngle(.8);
+            m_Superstructure.pincher.close();
+            m_Superstructure.pincher.setWrisAngle(.7);
             m_Superstructure.zeroPresetAuto();
         }
         waitForStart();
@@ -45,17 +46,17 @@ public class redSampleAuto extends LinearOpMode {
             //sample 1
 
             //m_Superstructure.pincher.scoreSpecimenWithScheduler(0, 30, runtime);
-            m_Drive.AutoDriveRC(0,7, 0,.45, runtime);
-            m_Drive.AutoDriveRC(-13.5, 0, .5, 1.25, runtime);
-            m_Drive.SetHeading(45, 1.27, 3, runtime);
-            m_Superstructure.lowPresetWithScheduler(1.35,1.75, runtime);
-            m_Superstructure.highPresetWithScheduler(1.751, 2.74, runtime);
-            m_Superstructure.pincher.wideOpenWithScheduler(2.45,2.75, runtime);
-            m_Superstructure.pincher.wristUpWithScheduler(2.76, 3.24, runtime);
-            m_Superstructure.pincher.openWithScheduler(3.25,3.501, runtime);
-            m_Superstructure.elevatorDownWithScheduler(3.25, 4.5, runtime);
-            m_Drive.AutoDriveRC(8, 0, 4, 4.5, runtime);
-            m_Drive.SetHeading(82,4.51, 6.26, runtime);
+            m_Drive.AutoDriveRC(-18,5.5, 0,1.1, runtime);
+            //m_Drive.AutoDriveRC(-13.5, 0, .5, 1.25, runtime);
+            m_Drive.SetHeading(45, 1.11, 2.5, runtime);
+            m_Superstructure.highPresetWithScheduler(1.2, 2.5, runtime);
+            m_Superstructure.pincher.scoreSampleWithScheduler(2, 2.5, runtime);
+            m_Superstructure.pincher.wideOpenWithScheduler(2.5,2.6, runtime);
+            m_Superstructure.pincher.wristUpWithScheduler(3.25, 3.5, runtime);
+            m_Superstructure.pincher.openWithScheduler(3.26,3.51, runtime);
+            m_Superstructure.elevatorDownWithScheduler(3.5, 4.25, runtime);
+            m_Drive.AutoDriveRC(8, 0, 3.76, 4.25, runtime);
+            m_Drive.SetHeading(82,4.26, 5.25, runtime);
             m_Superstructure.laterator.extendWithScheduler(4.76, 5.25, runtime);
             m_Superstructure.laterator.intakeWithScheduler(4.75, 5.26,  runtime);
             m_Superstructure.laterator.groundPickupWithScheduler(5, 5.5, runtime);

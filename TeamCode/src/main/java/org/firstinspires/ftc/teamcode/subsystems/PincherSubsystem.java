@@ -38,7 +38,7 @@ public class PincherSubsystem {
     }
 
     public void wristUp() {
-        setWrisAngle(.985);
+        setWrisAngle(.995);
     }
 
     public void wristUpWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -54,7 +54,7 @@ public class PincherSubsystem {
 
     //set pincher to open
     public void open() {
-        pincher.setServos(.26);
+        pincher.setServos(.35);
     }
     public void openWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
@@ -65,7 +65,7 @@ public class PincherSubsystem {
 
     //set pincher to wide open (for specimens off the wall)
     public void wideOpen() {
-        pincher.setServos(0);
+        pincher.setServos(0.2);
     }
 
     public void wideOpenWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -76,7 +76,7 @@ public class PincherSubsystem {
     }
     //set pincher to closed
     public void close() {
-        pincher.setServos(.4);}
+        pincher.setServos(.6);}
     public void closeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
         if ((initialTime <  currentTime) && (currentTime<= endTime)) {
@@ -112,7 +112,7 @@ public class PincherSubsystem {
         }
     }
     public void scoreSpecimen() {
-       setWrisAngle(.525);
+       setWrisAngle(.5);
     }
 
     public void scoreSpecimenWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {

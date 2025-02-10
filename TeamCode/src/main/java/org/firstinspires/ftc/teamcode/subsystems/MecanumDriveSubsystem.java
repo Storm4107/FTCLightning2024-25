@@ -21,6 +21,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.checkerframework.checker.units.qual.Current;
+import org.ejml.equation.IntegerSequence;
 import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -39,7 +40,7 @@ public class MecanumDriveSubsystem {
 
     public RevIMU imu;
 
-    GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
+    public GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
 
     //Creates new Mecanum Drivetrain
     public MecanumDriveSubsystem(HardwareMap Map, Telemetry telemetry) {
@@ -59,6 +60,10 @@ public class MecanumDriveSubsystem {
         imu.init();
 
         odo = Map.get(GoBildaPinpointDriver.class,"odo");
+        odo.setOffsets(-10, -150);
+        odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
+        odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        odo.resetPosAndIMU();
     }
 
     public void Drive(double x, double y, double t, boolean Dampen) {
@@ -149,6 +154,13 @@ public class MecanumDriveSubsystem {
         rightBack.stopAndResetEncoder();
     }
 
+    public double xInches() {
+       return odo.getPosX() / 25.4;
+    }
+    public double yInches() {
+        return odo.getPosX() / 25.4 ;
+    }
+
     public void zeroPowerBrake(){
         leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -160,6 +172,11 @@ public class MecanumDriveSubsystem {
         telemetry.addData("Heading", getHeading());
         //Called once per scheduler run
         //PUT PERIODIC HERE
+        odo.update();
+
+        telemetry.addData("x", xInches());
+        telemetry.addData("y", yInches());
+        telemetry.addData("T", odo.getPosition().getHeading());
     }
 
     //Drivebot scheduler: a custom movement utility.
@@ -188,13 +205,13 @@ public class MecanumDriveSubsystem {
 
     /**
      * Autonomously drive robot centric.
-     * @param Forward forward/backward in inches (forward is positive)
-     * @param Left Right/left in inches (Left is positive)
+     * @param x forward/backward in inches (forward is positive)
+     * @param y Right/left in inches (Left is positive)
      * @param initialTime  starting time for the command
      * @param endTime  finishing time for the command
      * @param runtime  passes the elapsedTime to the class
      */
-    public void AutoDriveRC(double Forward, double Left, double initialTime, double endTime, ElapsedTime runtime) {
+    public void AutoDriveRC(double x, double y, double initialTime, double endTime, ElapsedTime runtime) {
         int ForwardTarget;
         int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
@@ -220,8 +237,8 @@ public class MecanumDriveSubsystem {
         StrafeController.setTolerance(Constants.AutoConstants.PIDTolerance);
 
         //set target positions
-        ForwardTarget = driveDistance(Forward);
-        StrafeTarget  = driveDistance(Left);
+        ForwardTarget = driveDistance(x);
+        StrafeTarget  = driveDistance(y);
 
         StrafeController.setSetPoint(StrafeTarget);
         TranslationController.setSetPoint(ForwardTarget);
@@ -231,15 +248,14 @@ public class MecanumDriveSubsystem {
             //actually drives the robot.
             DriveRobotRelative((StrafeController.calculate(getStrafeTicks(), StrafeTarget)  * gain), (TranslationController.calculate(getForwardTicks(), ForwardTarget) * gain), HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading)) + calculateFFDirection(HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading))), false);
             telemetry.addData("AUTO DRIVE STATUS", "RUNNING");
-            telemetry.addData("X Travelled;", getForwardTicks());
-            telemetry.addData("Y Travelled;", getStrafeTicks());
+            telemetry.addData("X Travelled;", xInches());
+            telemetry.addData("Y Travelled;", yInches());
             telemetry.addData("Heading;", getHeading());
             telemetry.update();
         }
         if ((endTime < currentTime) && (currentTime<= endTime + 0.1)) {
             //Stop all motion
             DriveRobotRelative(0, 0, 0, false);
-            resetDriveEncoders();
             rightBack.setInverted(false);
             leftFront.setInverted(false);
             rightFront.setInverted(false);

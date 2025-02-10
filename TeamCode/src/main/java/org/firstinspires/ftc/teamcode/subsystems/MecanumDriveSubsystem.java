@@ -24,6 +24,7 @@ import org.checkerframework.checker.units.qual.Current;
 import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 
 public class MecanumDriveSubsystem {
     public MecanumDrive Drive;
@@ -37,6 +38,8 @@ public class MecanumDriveSubsystem {
     private double IMUOffset;
 
     public RevIMU imu;
+
+    GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
 
     //Creates new Mecanum Drivetrain
     public MecanumDriveSubsystem(HardwareMap Map, Telemetry telemetry) {
@@ -54,6 +57,8 @@ public class MecanumDriveSubsystem {
 
         imu = new RevIMU(Map, "imu");
         imu.init();
+
+        odo = Map.get(GoBildaPinpointDriver.class,"odo");
     }
 
     public void Drive(double x, double y, double t, boolean Dampen) {

@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.checkerframework.checker.units.UnitsTools;
 import org.checkerframework.checker.units.qual.Current;
 import org.ejml.equation.IntegerSequence;
 import org.firstinspires.ftc.robotcore.external.Const;
@@ -135,6 +136,7 @@ public class MecanumDriveSubsystem {
     }
 
 
+
     public void resetHeading() {
         IMUOffset = imu.getAbsoluteHeading();
     }
@@ -150,15 +152,14 @@ public class MecanumDriveSubsystem {
     }
 
     public void resetDriveEncoders() {
-        leftFront.stopAndResetEncoder();
-        rightBack.stopAndResetEncoder();
+        odo.resetPosAndIMU();
     }
 
     public double xInches() {
        return odo.getPosX() / 25.4;
     }
     public double yInches() {
-        return odo.getPosX() / 25.4 ;
+        return odo.getPosY() / 25.4 ;
     }
 
     public void zeroPowerBrake(){
@@ -176,19 +177,12 @@ public class MecanumDriveSubsystem {
 
         telemetry.addData("x", xInches());
         telemetry.addData("y", yInches());
-        telemetry.addData("T", odo.getPosition().getHeading());
+        telemetry.addData("T", getHeading());
     }
 
     //Drivebot scheduler: a custom movement utility.
     //This is an autonomous tool, but it can also be used for automatic movement in teleop.
     //TODO: PID for Strafe/translation/heading needs to be tuned.
-
-    //finds the amount of ticks to move for a given distance in inches
-    public static int driveDistance(double distance) {
-        double drive = (Constants.AutoConstants.COUNTS_PER_INCH);
-        int outputTicks = (int) Math.floor(drive * distance);
-        return outputTicks;
-    }
 
     //TODO: Figure out FF directions
     public static double calculateFFDirection(double input) {
@@ -212,17 +206,10 @@ public class MecanumDriveSubsystem {
      * @param runtime  passes the elapsedTime to the class
      */
     public void AutoDriveRC(double x, double y, double initialTime, double endTime, ElapsedTime runtime) {
-        int ForwardTarget;
-        int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
         double initialHeading = getHeading();
 
         double currentTime = runtime.seconds();
-
-        rightBack.setInverted(true);
-        leftFront.setInverted(true);
-        rightFront.setInverted(false);
-        leftBack.setInverted(false);
 
         //Create PID constants
         PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
@@ -237,29 +224,25 @@ public class MecanumDriveSubsystem {
         StrafeController.setTolerance(Constants.AutoConstants.PIDTolerance);
 
         //set target positions
-        ForwardTarget = driveDistance(x);
-        StrafeTarget  = driveDistance(y);
 
-        StrafeController.setSetPoint(StrafeTarget);
-        TranslationController.setSetPoint(ForwardTarget);
+        StrafeController.setSetPoint(y);
+        TranslationController.setSetPoint(x);
 
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             //Drivebot Periodic
             //actually drives the robot.
-            DriveRobotRelative((StrafeController.calculate(getStrafeTicks(), StrafeTarget)  * gain), (TranslationController.calculate(getForwardTicks(), ForwardTarget) * gain), HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading)) + calculateFFDirection(HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading))), false);
+            Drive((StrafeController.calculate(yInches(), y)  * gain), (TranslationController.calculate(xInches(), x) * gain), HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading)) + calculateFFDirection(HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), initialHeading))), false);
             telemetry.addData("AUTO DRIVE STATUS", "RUNNING");
             telemetry.addData("X Travelled;", xInches());
             telemetry.addData("Y Travelled;", yInches());
             telemetry.addData("Heading;", getHeading());
             telemetry.update();
+            odo.update();
         }
         if ((endTime < currentTime) && (currentTime<= endTime + 0.1)) {
             //Stop all motion
-            DriveRobotRelative(0, 0, 0, false);
-            rightBack.setInverted(false);
-            leftFront.setInverted(false);
-            rightFront.setInverted(false);
-            leftBack.setInverted(false);
+            Drive(0, 0, 0, false);
+
         }
     }
 
@@ -289,7 +272,7 @@ public class MecanumDriveSubsystem {
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             //Drivebot Periodic
             //actually drives the robot.
-            DriveRobotRelative(0, HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), HeadingTarget)) + calculateFFDirection(HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), HeadingTarget))), 0, false);
+            DriveRobotRelative(0, HeadingController.calculate(getHeading(), calculateContinousSetpoint(getHeading(), HeadingTarget)), 0, false);
             telemetry.addData("AUTO DRIVE STATUS", "HEADING");
             telemetry.addData("Heading;", getHeading());
             telemetry.update();
@@ -297,7 +280,6 @@ public class MecanumDriveSubsystem {
         if ((endTime < currentTime) && (currentTime<= endTime + 0.1)) {
             //Stop all motion
             DriveRobotRelative(0, 0, 0, false);
-            resetDriveEncoders();
 
             rightBack.setInverted(false);
             leftFront.setInverted(false);

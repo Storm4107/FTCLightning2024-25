@@ -29,29 +29,30 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         //Run when initializing
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
-        m_Drive.zeroPowerBrake();
 
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.update();
-            telemetry.addData("Auto", "Selected");
-            m_Drive.zeroPowerBrake();
             runtime.reset();
-            m_Superstructure.pincher.setWrisAngle(.7);
+            telemetry.addData("Auto", "Selected");
+
+            // TODO: 1/11/2025
+            m_Superstructure.pincher.setWrisAngle(.8);
             m_Superstructure.zeroPresetAuto();
-
-            //init commands
-
-
-
         }
         waitForStart();
         m_Drive.resetDriveEncoders();
 
+
         if (isStopRequested()) return;
+
         while (opModeIsActive()) {
-            telemetry.addData("Current time", runtime.seconds());
-            //m_Drive.SetHeading(0, .5, 29, runtime);
-            m_Drive.AutoDriveRC(30, 0, 1, 30,runtime);
+
+            m_Drive.AutoDriveRC(10,0, 0, 2, runtime);
+            m_Drive.AutoDriveRC(10, 10, 2.1, 4, runtime);
+            m_Drive.AutoDriveRC(0, 10, 4.1, 6, runtime);
+            m_Drive.AutoDriveRC(0, 0, 6.1, 8, runtime);
+
+
         }
 
     }

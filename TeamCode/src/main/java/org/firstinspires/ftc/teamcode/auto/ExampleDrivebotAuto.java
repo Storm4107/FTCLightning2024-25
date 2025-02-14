@@ -50,8 +50,8 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         if (isStopRequested()) return;
         while (opModeIsActive()) {
             telemetry.addData("Current time", runtime.seconds());
-            m_Drive.SetHeading(90, 1, 10, runtime);
-            //m_Drive.AutoDriveRC(15, 0, 1, 30,runtime);
+            //m_Drive.SetHeading(90, 1, 10, runtime);
+            m_Drive.AutoDriveRC(15, 0, 1, 30,runtime);
             //m_Drive.AutoDriveRC(15, 15, 0, 30, runtime);
         }
 

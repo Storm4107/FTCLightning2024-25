@@ -55,7 +55,7 @@ public class redSampleAuto extends LinearOpMode {
             m_Superstructure.elevatorDownWithScheduler(3, 6, runtime);
 
             //sample 2
-            m_Drive.SetHeading(67,3.5, 4.5, runtime);
+            m_Drive.SetHeading(68,3.5, 4.5, runtime);
             m_Drive.AutoDriveRC(11, 0, 4.51, 5.95, runtime);
             m_Superstructure.laterator.extendWithScheduler(4, 4.25, runtime);
             m_Superstructure.laterator.intakeWithScheduler(4.02,4.26,  runtime);
@@ -95,12 +95,12 @@ public class redSampleAuto extends LinearOpMode {
             m_Superstructure.elevatorDownWithScheduler(17.25, 21, runtime);
 
             //sample 4
-            m_Drive.SetHeading(90, 18, 20, runtime);
-            m_Drive.AutoDriveRC(10, -5, 20.1, 21, runtime);
-            m_Drive.SetHeading(115, 21.1, 22.25, runtime);
-            m_Superstructure.laterator.extendWithScheduler(22.26, 22.5, runtime);
-            m_Superstructure.laterator.intakeWithScheduler(22,22.25, runtime);
-            m_Superstructure.laterator.groundPickupWithScheduler(22.5, 23, runtime);
+            m_Drive.SetHeading(90, 18, 19.15, runtime);
+            m_Drive.AutoDriveRC(10, -5, 19.2, 20.75, runtime);
+            m_Drive.SetHeading(115, 20.76, 21.75, runtime);
+            m_Superstructure.laterator.extendWithScheduler(21.76, 22.5, runtime);
+            m_Superstructure.laterator.intakeWithScheduler(21.75,22.25, runtime);
+            m_Superstructure.laterator.groundPickupWithScheduler(22, 22.5, runtime);
             m_Superstructure.laterator.levelWithScheduler(24.5, 25, runtime);
             m_Superstructure.laterator.retractWithScheduler(24.6, 25.1, runtime);
             m_Superstructure.laterator.stopIntakeWithScheduler(26, 27, runtime);
@@ -114,6 +114,7 @@ public class redSampleAuto extends LinearOpMode {
             m_Superstructure.pincher.wristUpWithScheduler(29, 30, runtime);
             m_Superstructure.pincher.openWithScheduler(29.1, 29.9, runtime);
             m_Superstructure.resetElevatorWithScheduler(29, 30, runtime);
+            m_Drive.SetHeading(90, 29, 30, runtime);
 
 
 

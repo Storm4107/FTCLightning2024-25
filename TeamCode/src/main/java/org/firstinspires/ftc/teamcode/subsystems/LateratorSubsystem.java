@@ -78,7 +78,7 @@ public class LateratorSubsystem {
     }
     //Presets
     public void extend() {
-        setLaterator(0.37);
+        setLaterator(0.35);
     }
 
     public void extendWithScheduler(
@@ -101,7 +101,7 @@ public class LateratorSubsystem {
     }
 
     public void shortExtend() {
-        setLaterator(.58);
+        setLaterator(.55);
     }
 
     public void shortExtendWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -127,7 +127,7 @@ public class LateratorSubsystem {
     }
 
     public void retract() {
-        setLaterator(.63);
+        setLaterator(.615);
     }
 
     public void retractWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {

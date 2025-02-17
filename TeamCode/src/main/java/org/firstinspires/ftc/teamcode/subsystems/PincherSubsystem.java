@@ -65,7 +65,7 @@ public class PincherSubsystem {
 
     //set pincher to wide open (for specimens off the wall)
     public void wideOpen() {
-        pincher.setServos(0.2);
+        pincher.setServos(0.15);
     }
 
     public void wideOpenWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -76,7 +76,7 @@ public class PincherSubsystem {
     }
     //set pincher to closed
     public void close() {
-        pincher.setServos(.6);}
+        pincher.setServos(.45);}
     public void closeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
         if ((initialTime <  currentTime) && (currentTime<= endTime)) {
@@ -91,7 +91,6 @@ public class PincherSubsystem {
 
     public void wallPickup() {
        setWrisAngle(0);
-        wideOpen();
     }
 
     public void wallPickupPresetWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {

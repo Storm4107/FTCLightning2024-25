@@ -75,15 +75,15 @@ public class redSampleAuto extends LinearOpMode {
             m_Superstructure.elevatorDownWithScheduler(9,13, runtime);
 
             //sample 3
-            m_Drive.SetHeading(81, 9.5, 10.5, runtime);
+            m_Drive.SetHeading(83, 9.5, 10.5, runtime);
             m_Superstructure.laterator.extendWithScheduler(10, 10.25, runtime);
             m_Superstructure.laterator.intakeWithScheduler(9.75, 10.24, runtime);
             m_Superstructure.laterator.groundPickupWithScheduler(10.5, 10.75, runtime);
-            m_Drive.AutoDriveRC(8,0,10.51,11.25, runtime);
+            m_Drive.AutoDriveRC(10,0,10.51,11.75, runtime);
             m_Superstructure.laterator.levelWithScheduler(12.25, 12.5, runtime);
             m_Superstructure.laterator.retractWithScheduler(12.26, 12.51, runtime);
             m_Superstructure.laterator.stopIntakeWithScheduler(14, 14.2, runtime);
-            m_Drive.AutoDriveRC(-8, 0, 12.5, 13.25, runtime);
+            m_Drive.AutoDriveRC(-8.75, 0, 12.5, 13.25, runtime);
             m_Drive.SetHeading(55, 13.26, 14.26, runtime);
             m_Superstructure.HandoffPresetWithScheduler(13.75, 14.75, runtime);
             m_Superstructure.pincher.closeWithScheduler(14.51, 14.75, runtime);
@@ -97,7 +97,7 @@ public class redSampleAuto extends LinearOpMode {
             //sample 4
             m_Drive.SetHeading(90, 18, 19.15, runtime);
             m_Drive.AutoDriveRC(10, -5, 19.2, 20.75, runtime);
-            m_Drive.SetHeading(115, 20.76, 21.75, runtime);
+            m_Drive.SetHeading(112, 20.76, 21.75, runtime);
             m_Superstructure.laterator.extendWithScheduler(21.76, 22.5, runtime);
             m_Superstructure.laterator.intakeWithScheduler(21.75,22.25, runtime);
             m_Superstructure.laterator.groundPickupWithScheduler(22, 22.5, runtime);
@@ -105,7 +105,7 @@ public class redSampleAuto extends LinearOpMode {
             m_Superstructure.laterator.retractWithScheduler(24.6, 25.1, runtime);
             m_Superstructure.laterator.stopIntakeWithScheduler(26, 27, runtime);
             m_Drive.SetHeading(50,25.25, 26.5,runtime);
-            m_Drive.AutoDriveRC(-10, -7.5, 26.6, 28, runtime);
+            m_Drive.AutoDriveRC(-9, -7.5, 26.6, 28, runtime);
             m_Superstructure.HandoffPresetWithScheduler(25.5,26.5, runtime);
             m_Superstructure.pincher.closeWithScheduler(26.25, 26.75, runtime);
             m_Superstructure.highPresetWithScheduler(27.25, 28.5, runtime);

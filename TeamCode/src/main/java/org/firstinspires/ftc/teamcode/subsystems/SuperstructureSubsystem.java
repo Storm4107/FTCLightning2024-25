@@ -114,13 +114,13 @@ public class SuperstructureSubsystem {
     public void prepSpecWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
         if ((initialTime < currentTime) && (currentTime <= endTime)) {
-            Elevator.setInches(-250);
+            Elevator.setInches(-400);
             periodic();
         }
     }
     public void HandoffPreset() {
 
-        Elevator.setInches(-135);
+        Elevator.setInches(-150);
         laterator.retract();
     }
 
@@ -142,7 +142,7 @@ public class SuperstructureSubsystem {
             //specimen preset - Brings all mechanisms to high rung / low basket
     public void lowPreset() {
 
-        Elevator.setInches(-850);
+        Elevator.setInches(-900);
         //pincher.scoreSpecimen();
     }
 

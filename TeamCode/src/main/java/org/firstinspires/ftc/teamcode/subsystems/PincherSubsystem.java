@@ -38,7 +38,7 @@ public class PincherSubsystem {
     }
 
     public void wristUp() {
-        setWrisAngle(.995);
+        setWrisAngle(.865);
     }
 
     public void wristUpWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -54,7 +54,7 @@ public class PincherSubsystem {
 
     //set pincher to open
     public void open() {
-        pincher.setServos(.35);
+        pincher.setServos(.325);
     }
     public void openWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
@@ -76,7 +76,7 @@ public class PincherSubsystem {
     }
     //set pincher to closed
     public void close() {
-        pincher.setServos(.45);}
+        pincher.setServos(.445);}
     public void closeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
         if ((initialTime <  currentTime) && (currentTime<= endTime)) {
@@ -90,7 +90,7 @@ public class PincherSubsystem {
     }
 
     public void wallPickup() {
-       setWrisAngle(0);
+       setWrisAngle(.066);
     }
 
     public void wallPickupPresetWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -101,7 +101,7 @@ public class PincherSubsystem {
     }
 
     public void scoreSample() {
-        setWrisAngle(.22);
+        setWrisAngle(.28);
     }
 
     public void scoreSampleWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
@@ -111,7 +111,7 @@ public class PincherSubsystem {
         }
     }
     public void scoreSpecimen() {
-       setWrisAngle(.5);
+       setWrisAngle(.53);
     }
 
     public void scoreSpecimenWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {

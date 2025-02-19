@@ -35,7 +35,7 @@ public class redSpecimenAuto extends LinearOpMode {
             telemetry.addData("Auto", "Selected");
 
           // TODO: 1/11/2025
-            m_Superstructure.pincher.setWrisAngle(.7);
+            m_Superstructure.pincher.scoreSpecimen();
             m_Superstructure.zeroPresetAuto();
 
         }
@@ -47,13 +47,35 @@ public class redSpecimenAuto extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            m_Superstructure.pincher.lowTaperFadeWithScheduler(0,1, runtime);
-            m_Superstructure.prepSpecWithScheduler(0, 2,runtime);
-            m_Drive.AutoDriveRC(33,0, 0, 1.95, runtime);
-            m_Drive.SetHeading(0, 2, 2.75, runtime);
-            m_Superstructure.lowPresetWithScheduler(2.76, 4, runtime);
-            m_Superstructure.pincher.wideOpenWithScheduler(4.1, 5, runtime);
-            m_Drive.AutoDriveRC(-10, 0, 5.5, 7, runtime);
+           m_Drive.AutoDriveRC(30, 5,0, 2, runtime);
+           m_Drive.SetHeading(0, 2.1, 2.5, runtime);
+           m_Drive.AutoDriveRC(11, 0, 2.6, 3.25, runtime);
+           m_Superstructure.prepSpecWithScheduler(.5, 1.5, runtime);
+           m_Superstructure.lowPresetWithScheduler(3.5, 5, runtime);
+           m_Superstructure.pincher.wideOpenWithScheduler(4, 4.25, runtime);
+           m_Drive.AutoDriveRC(-15, -45, 4.5, 7, runtime);
+           m_Superstructure.wallPickupWithScheduler(6, 10, runtime);
+           m_Drive.SetHeading(0, 7.1, 8, runtime);
+           m_Drive.AutoDriveRC(17.5, 0,8.1, 9.25, runtime);
+           m_Drive.AutoDriveRC(0, -20, 9.3, 10.4, runtime);
+           m_Drive.SetHeading(0, 10.45, 10.75, runtime);
+           m_Drive.AutoDriveRC(-50, 0,10.8, 13.25, runtime);
+           m_Drive.SetHeading(0, 13.3, 13.85, runtime);
+           m_Drive.AutoDriveRC(-12, 0, 13.9, 14.5, runtime);
+           m_Superstructure.pincher.closeWithScheduler(14.55, 14.65, runtime);
+           m_Superstructure.prepSpecWithScheduler(15, 16, runtime);
+           m_Superstructure.pincher.scoreSpecimenWithScheduler(15, 16, runtime);
+           m_Drive.AutoDriveRC(15, 50,15.5, 18.5, runtime );
+           m_Drive.SetHeading(0, 18.55, 19, runtime);
+           m_Drive.AutoDriveRC(10, 0, 19.05, 19.75, runtime);
+           m_Superstructure.lowPresetWithScheduler(19.8, 25, runtime);
+           m_Superstructure.pincher.openWithScheduler(20.65, 20.75, runtime);
+           m_Drive.AutoDriveRC(-15, 0, 21, 22.5, runtime);
+           m_Superstructure.pincher.scoreSpecimenWithScheduler(23, 25, runtime);
+           m_Superstructure.resetElevatorWithScheduler(25.1, 28, runtime);
+           m_Drive.SetHeading(-90, 22.6, 24.5, runtime);
+           m_Drive.AutoDriveRC(60, -35, 24.6, 27, runtime);
+           m_Drive.SetHeading(0, 27.1, 30, runtime);
 
 
 

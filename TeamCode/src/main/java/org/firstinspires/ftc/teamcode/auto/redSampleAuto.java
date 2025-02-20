@@ -110,10 +110,10 @@ public class redSampleAuto extends LinearOpMode {
             m_Superstructure.pincher.closeWithScheduler(26.25, 26.75, runtime);
             m_Superstructure.highPresetWithScheduler(27.25, 28.5, runtime);
             m_Superstructure.pincher.scoreSampleWithScheduler(27.75, 28, runtime);
-            m_Superstructure.pincher.wideOpenWithScheduler(28.25, 29, runtime);
-            m_Superstructure.pincher.wristUpWithScheduler(29, 30, runtime);
-            m_Superstructure.pincher.openWithScheduler(29.1, 29.9, runtime);
-            m_Superstructure.resetElevatorWithScheduler(29, 30, runtime);
+            m_Superstructure.pincher.wideOpenWithScheduler(28.25, 28.725, runtime);
+            m_Superstructure.pincher.wristUpWithScheduler(28.75, 30, runtime);
+            m_Superstructure.pincher.openWithScheduler(29, 29.9, runtime);
+            m_Superstructure.resetElevatorWithScheduler(28.75, 30, runtime);
             m_Drive.SetHeading(90, 29, 30, runtime);
 
 

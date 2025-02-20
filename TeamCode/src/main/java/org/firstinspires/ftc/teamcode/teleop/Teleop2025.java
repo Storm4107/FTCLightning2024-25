@@ -22,6 +22,8 @@ public class Teleop2025 extends LinearOpMode {
     private MecanumDriveSubsystem m_Drive;
     private SuperstructureSubsystem m_Superstructure;
 
+    public double HeadingSetpoint = 0;
+
     @Override
     public void runOpMode() {
         //Run when initializing
@@ -51,7 +53,11 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 //Drivetrain method
+            if(Driver.getButton(GamepadKeys.Button.A) || Driver.getButton(GamepadKeys.Button.B) || Driver.getButton(GamepadKeys.Button.X) || Driver.getButton(GamepadKeys.Button.Y)) {
+                m_Drive.DriveWithHeading(Driver.getLeftX(), Driver.getLeftY(), HeadingSetpoint, Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+            } else {
                 m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+            }
 
                 // sets the power brake on the drivetrain
                 m_Drive.zeroPowerBrake();
@@ -141,6 +147,14 @@ public class Teleop2025 extends LinearOpMode {
 
                 if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
                     m_Superstructure.pincher.lowTaperFade();
+                }
+
+                if (Driver.getButton(GamepadKeys.Button.X)) {
+                    HeadingSetpoint=-45;
+                }
+
+                if (Driver.getButton(GamepadKeys.Button.A)) {
+                    HeadingSetpoint=0;
                 }
 
                 telemetry.update();

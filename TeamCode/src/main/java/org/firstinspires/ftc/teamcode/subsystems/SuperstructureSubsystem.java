@@ -120,7 +120,7 @@ public class SuperstructureSubsystem {
     }
     public void HandoffPreset() {
 
-        Elevator.setInches(-150);
+        Elevator.setInches(-200);
         laterator.retract();
     }
 
@@ -142,7 +142,7 @@ public class SuperstructureSubsystem {
             //specimen preset - Brings all mechanisms to high rung / low basket
     public void lowPreset() {
 
-        Elevator.setInches(-900);
+        Elevator.setInches(-950);
         //pincher.scoreSpecimen();
     }
 
@@ -167,7 +167,7 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to high bucket
     public void highPreset() {
 
-        Elevator.setInches(-1630);
+        Elevator.setInches(-1680);
         laterator.retract();
         pincher.scoreSample();
     }
@@ -175,7 +175,7 @@ public class SuperstructureSubsystem {
     public void highPresetWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
         double currentTime = runtime.seconds();
         if ((initialTime < currentTime) && (currentTime <= endTime)) {
-            Elevator.setInches(-1630);
+            Elevator.setInches(-1680);
             periodic();
         }
     }
